@@ -4,7 +4,9 @@
       <router-link to="/">HOME</router-link> |
       <router-link to="/movie">MOVIE</router-link> |
       <router-link to="/community">COMMUNITY</router-link> |
-      <router-link to="/my-page">MY PAGE</router-link>
+      <router-link to="/my-page">MY PAGE</router-link> |
+      <router-link to="/signup">SIGN UP</router-link> |
+      <router-link to="/login">LOGIN</router-link>
     </nav>
   </div>
 </template>
