@@ -1,14 +1,18 @@
 <template>
-  <div>
-    <nav>
-      <router-link to="/">HOME</router-link> |
-      <router-link to="/movie">MOVIE</router-link> |
-      <router-link to="/community">COMMUNITY</router-link> |
-      <router-link to="/my-page">MY PAGE</router-link> |
-      <router-link to="/signup">SIGN UP</router-link> |
-      <router-link to="/login">LOGIN</router-link>
-    </nav>
-  </div>
+  <nav class="navbar">
+    <div class="container">
+      <router-link to="/" class="nav-item">
+        <img src="@/assets/default.png" alt="Bootstrap" height="48">
+      </router-link>
+      <router-link to="/" class="nav-item">HOME</router-link> 
+      <router-link to="/movie" class="nav-item">MOVIE</router-link> 
+      <router-link to="/community" class="nav-item">COMMUNITY</router-link> 
+      <router-link to="/my-page" class="nav-item">MY PAGE</router-link>
+    </div>
+
+    <router-link to="/signup">SIGN UP</router-link> |
+    <router-link to="/login">LOGIN</router-link>
+  </nav>
 </template>
 
 <script>
@@ -21,14 +25,6 @@ export default {
 </script>
 
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
-
 nav {
   padding: 30px;
 }
