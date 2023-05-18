@@ -4,6 +4,8 @@ import HomeView from '../views/home/HomeView.vue'
 import MovieView from '../views/movies/MovieView.vue'
 import CommunityView from '../views/community/CommunityView.vue'
 import MypageView from '../views/accounts/MypageView.vue'
+import SignUpView from '../views/accounts/SignUpView.vue'
+import LoginView from '../views/accounts/LoginView.vue'
 
 Vue.use(VueRouter)
 
@@ -27,6 +29,16 @@ const routes = [
     path: '/my-page',
     name: 'my-page',
     component: MypageView
+  },
+  {
+    path: '/signup',
+    name: 'signup',
+    component: SignUpView
+  },
+  {
+    path: '/login',
+    name: 'login',
+    component: LoginView
   },
 ]
 
