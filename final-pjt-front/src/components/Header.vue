@@ -11,8 +11,8 @@
         <router-link to="/my-page" class="m-3">MY PAGE</router-link>
       </div>
       <div>
-        <router-link to="/signup" class="me-3 text-primary">SIGN UP</router-link>
-        <router-link to="/login" class="btn btn-primary text-white">LOGIN</router-link>
+        <router-link to="/signup" class="me-3 text-secondary">SIGN UP</router-link>
+        <router-link to="/login" class="btn btn-secondary text-white">LOGIN</router-link>
       </div>
     </div>
   </div>
@@ -41,9 +41,5 @@ export default {
 
 .top a.router-link-exact-active {
   color: #FF2700;
-}
-
-.nav-a {
-  font-size: 20px;
 }
 </style>

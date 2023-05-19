@@ -1,7 +1,6 @@
 <template>
   <div>
     <MovieList />
-    <MovieList />
   </div>
 </template>
 
