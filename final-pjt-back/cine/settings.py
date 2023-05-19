@@ -94,6 +94,10 @@ REST_AUTH = { # 회원가입시 토큰 발급
     'SESSION_LOGIN': False,
 }
 
+REST_AUTH_REGISTER_SERIALIZERS = { 
+    'REGISTER_SERIALIZER': 'accounts.serializers.CustomRegisterSerializer'
+}
+
 # AUTHENTICATION_BACKENDS = [
 #     'django.contrib.auth.backends.ModelBackend',
 #     'allauth.account.auth_backends.AuthenticationBackend',
@@ -113,8 +117,8 @@ ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
-ACCOUNT_NICKNAME_REQUIRED = True
-ACCOUNT_UNIQUE_NICKNAME = True
+# ACCOUNT_NICKNAME_REQUIRED = True
+# ACCOUNT_UNIQUE_NICKNAME = True
 
 ROOT_URLCONF = 'cine.urls'
 
