@@ -31,11 +31,12 @@ export default new Vuex.Store({
     MOVIE_LIST(state, payload) {
       if (payload.item == 'top_rated') {
         state.top_rated = payload.movie
-        console.log(state.top_rated)
       } else if (payload.item === 'now_playing') {
         state.now_playing = payload.movie
+        console.log(state.now_playing)
       } else {
         state.popular = payload.movie
+        // console.log(state.popular)
       }
     }
   },
@@ -44,12 +45,13 @@ export default new Vuex.Store({
       const username = payload.username
       const password1 = payload.password1
       const password2 = payload.password2
+      const nickname = payload.nickname
 
       axios({
         method: 'post',
-        url: `${API_URL}/accounts/signup/`,
+        url: `${API_URL}/api/v1/registration/`,
         data: {
-          username, password1, password2
+          username, password1, password2, nickname,
         }
       })
         .then((res) => {
@@ -72,7 +74,6 @@ export default new Vuex.Store({
             'movie': res.data.results
           }
           context.commit('MOVIE_LIST', payload)
-          console.log(num)
         })
         .catch((err) => {
           console.log(err)
