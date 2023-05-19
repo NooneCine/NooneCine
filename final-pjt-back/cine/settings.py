@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     # CORS policy
     "corsheaders",
 
+    # 'coplate',
+
     # Auth
     'rest_framework',
     'rest_framework.authtoken',
@@ -104,13 +106,15 @@ JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
 SITE_ID = 1
 # 하나의 컨텐츠로 여러 개의 도메인에 등록하고 싶을 때 사용
 
-ACCOUNT_SUGNUP_FORM_CLASS = 'coplate.forms.SignupForm'
+ACCOUNT_SIGNUP_FORM_CLASS = 'accounts.forms.SignupForm'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_NICKNAME_REQUIRED = True
+ACCOUNT_UNIQUE_NICKNAME = True
 
 ROOT_URLCONF = 'cine.urls'
 

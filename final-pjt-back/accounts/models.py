@@ -14,7 +14,8 @@ class User(AbstractUser):
     favorite_movie = models.CharField(_("인생 영화"), max_length=100, null=True, blank=True)
 
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = ['name', 'nickname']
+    # REQUIRED_FIELDS = ['name', 'nickname']
+    REQUIRED_FIELDS = []
 
     objects = UserManager()
 
