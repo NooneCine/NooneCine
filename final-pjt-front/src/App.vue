@@ -2,7 +2,7 @@
   <div id="app">
     <HeaderView />
     <router-view/>
-    <FooterView class="fixed-bottom"/>
+    <FooterView />
   </div>
 </template>
 
