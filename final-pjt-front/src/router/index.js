@@ -6,6 +6,7 @@ import CommunityView from '../views/community/CommunityView.vue'
 import MypageView from '../views/accounts/MypageView.vue'
 import SignUpView from '../views/accounts/SignUpView.vue'
 import LoginView from '../views/accounts/LoginView.vue'
+import SearchView from '../views/home/SearchView.vue'
 
 Vue.use(VueRouter)
 
@@ -39,6 +40,11 @@ const routes = [
     path: '/login',
     name: 'login',
     component: LoginView
+  },
+  {
+    path: '/search',
+    name: 'search',
+    component: SearchView
   },
 ]
 
