@@ -51,11 +51,11 @@ export default {
 
 .top a {
   font-weight: bold;
-  color: #FFC0B4;
+  color: rgb(255, 206, 81);
   text-decoration-line: none;
 }
 
 .top a.router-link-exact-active {
-  color: #FF2700;
+  color: rgb(158, 95, 253);
 }
 </style>
