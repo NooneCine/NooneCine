@@ -5,6 +5,7 @@ class SignupForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ("name", "nickname")
+        read_only_fields = ("username",)
 
     def signup(self, request, user):
         user.name = self.cleaned_data["name"]
