@@ -19,7 +19,7 @@
       
       <input type="submit" value="SignUp">
     </form>
-    
+    <p>이미 누네씨네 계정이 있다면, <router-link to="/login">로그인 하기</router-link></p>
   </div>
 </template>
 
