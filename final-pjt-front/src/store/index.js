@@ -22,11 +22,20 @@ export default new Vuex.Store({
     popular: [],
   },
   getters: {
+    isLogin(state) {
+      return state.token ? true : false
+    }
   },
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
-      router.push({name : 'LoginView'}) // store/index.js $router 접근 불가 -> import를 해야함
+      console.log(state.token)
+      router.push({name : 'HomeView'}) // store/index.js $router 접근 불가 -> import를 해야함
+    },
+    LOGOUT(state) {
+      state.token = null
+      console.log(state.token)
+      location.reload()
     },
     MOVIE_LIST(state, payload) {
       if (payload.item == 'top_rated') {
@@ -56,12 +65,34 @@ export default new Vuex.Store({
         }
       })
         .then((res) => {
-          context.commit('SAVE_TOKEN', res.data.key)
+          console.log(res.data)
+          context.commit('SAVE_TOKEN', res.data.token)
+          router.push({name : 'LoginView'})
         })
         .catch((err) => {
           console.log(err)
         })
     },
+    logIn(context, payload) {
+      const email = payload.email
+      const password = payload.password
+
+      axios({
+        method: 'post',
+        url: `${API_URL}/api/v1/login/`,
+        data: {
+          email, password
+        }
+      })
+      .then((res) => {
+        context.commit('SAVE_TOKEN', res.data.token)
+      })
+      .catch((err) => console.log(err))
+    },
+    logOut(context) {
+      context.commit('LOGOUT')
+    },
+
     // components/MovieList
     getMovieList(context, num) {
       return new Promise(() => {
