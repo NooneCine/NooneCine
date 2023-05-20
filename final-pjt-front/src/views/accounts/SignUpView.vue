@@ -2,15 +2,18 @@
   <div>
     <h1>SignUpView</h1>
     <form @submit.prevent="signUp">
-      <label for="username">email : </label>
-      <input type="email" id="username" v-model="username"><br>
+      <label for="email">email : </label>
+      <input type="email" id="email" v-model="email"><br>
 
-      <label for="password1"> password : </label>
-      <input type="password" id="password1" v-model="password1"><br>
+      <label for="password"> password : </label>
+      <input type="password" id="password" v-model="password"><br>
 
       <label for="password2"> password confirmation : </label>
       <input type="password" id="password2" v-model="password2">
       
+      <label for="name"> name : </label>
+      <input type="text" id="name" v-model="name">
+
       <label for="nickname"> nickname : </label>
       <input type="text" id="nickname" v-model="nickname">
       
@@ -25,22 +28,24 @@ export default {
   name: 'SignUpView',
   data() {
     return {
-      username: null,
-      password1: null,
+      email: null,
+      password: null,
       password2: null,
+      name: null,
       nickname: null,
     }
   },
   methods: {
     signUp() {
       // console.log('signup')
-      const username = this.username
-      const password1 = this.password1
+      const email = this.email
+      const password = this.password
       const password2 = this.password2
+      const name = this.name
       const nickname = this.nickname
 
       const payload = {
-        username, password1, password2, nickname
+        email, password, password2, name, nickname
       }
 
       this.$store.dispatch('signUp', payload)

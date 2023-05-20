@@ -26,7 +26,7 @@ export default new Vuex.Store({
   mutations: {
     SAVE_TOKEN(state, token) {
       state.token = token
-      router.push({name : 'HomeView'}) // store/index.js $router 접근 불가 -> import를 해야함
+      router.push({name : 'LoginView'}) // store/index.js $router 접근 불가 -> import를 해야함
     },
     MOVIE_LIST(state, payload) {
       if (payload.item == 'top_rated') {
@@ -42,24 +42,25 @@ export default new Vuex.Store({
   },
   actions: {
     signUp(context, payload) {
-      const username = payload.username
-      const password1 = payload.password1
+      const email = payload.email
+      const password = payload.password
       const password2 = payload.password2
+      const name = payload.name
       const nickname = payload.nickname
 
       axios({
         method: 'post',
-        url: `${API_URL}/api/v1/registration/`,
+        url: `${API_URL}/api/v1/register/`,
         data: {
-          username, password1, password2, nickname,
+          email, password, password2, name, nickname,
         }
       })
         .then((res) => {
           context.commit('SAVE_TOKEN', res.data.key)
         })
         .catch((err) => {
-        console.log(err)
-      })
+          console.log(err)
+        })
     },
     // components/MovieList
     getMovieList(context, num) {
