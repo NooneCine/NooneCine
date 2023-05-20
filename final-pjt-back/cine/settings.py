@@ -90,6 +90,13 @@ MIDDLEWARE = [
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# 허용하고 싶은 호스트만 입력해 사용
+# CORS_ALLOW_ALL_ORIGINS = False
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:8080',  # vue의 포트 번호
+#     'http://127.0.0.1:8000',
+# )
+
 REST_AUTH = { # 회원가입시 토큰 발급
     'SESSION_LOGIN': False,
 }
