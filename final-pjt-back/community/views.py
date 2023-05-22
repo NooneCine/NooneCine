@@ -1,6 +1,10 @@
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
+
+from rest_framework.viewsets import ModelViewSet
+from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+
 from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
 from .serializers import PostListSerializer, PostSerializer, CommentSerializer
@@ -9,7 +13,7 @@ from .models import Post, Comment
 
 # Create your views here.
 @api_view(['GET', 'POST'])
-# @permission_classes([IsAuthenticated])
+@permission_classes([IsAuthenticated])
 def post_list(request):
     if request.method == 'GET':
         posts = get_list_or_404(Post)
@@ -42,6 +46,16 @@ def post_detail(request, post_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+
+
+# class PostViewSet(ModelViewSet):
+#     queryset = Post.objects.all()
+#     serializer_class = PostSerializer
+#     authentication_classes = [TokenAuthentication]
+#     permission_classes = [IsAuthenticated]
+
+#     def perform_create(self, serializer):
+#         serializer.save(user=self.request.user)
 
 
 # @api_view(['POST'])
