@@ -31,6 +31,8 @@ class UserSerializer(serializers.ModelSerializer):
             'email',
             'name',
             'nickname',
+            'profile_img',
+            'favorite_movie',
             'is_active',
             'password'
         )
@@ -38,7 +40,9 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password': {'required': True, 'write_only': True},
             'name': {'required': True},
-            'nickname': {'required': True}
+            'nickname': {'required': True},
+            'profile_img': {},
+            'favorite_movie': {}
         }
 
     @staticmethod

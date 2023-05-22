@@ -197,6 +197,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# 기본 api url을 통일 시켜 번거로움을 줄이기 위해 /api/로 설정했음
+# MEDIA_URL = 'community/media/'
+
+# 이미지 파일이 저장되는 기본 위치를 media폴더로 설정
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
