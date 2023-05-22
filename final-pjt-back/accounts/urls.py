@@ -1,17 +1,10 @@
-# from django.urls import path, include
-# from . import views
-
-# urlpatterns = [
-#     path('', include('dj_rest_auth.urls')),
-#     path('registration/', customSignUpView.as_view())
-#     # path('registration/', include('dj_rest_auth.registration.urls')),
-# ]
-
-
-from django.urls import path
-from .views import RegisterView, LoginView
+from django.conf.urls import url
+from rest_framework import routers
+from . import views
 
 urlpatterns = [
-    path('register/', RegisterView.as_view()),
-    path('login/', LoginView.as_view()),
+    url(r'^register/$', views.RegisterView.as_view(), name='user-register'),
+    url(r'^login/$', views.LoginView.as_view(), name='user-login'),
+    url(r'^logout/$', views.LogoutView.as_view(), name='user-logout'),
+    url(r'^current/$', views.UserView.as_view(), name='user-current'),
 ]

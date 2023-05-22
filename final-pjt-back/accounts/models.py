@@ -1,36 +1,23 @@
-# from django.contrib.auth.models import AbstractUser
-# from django.db import models
-# from django.utils.translation import gettext_lazy as _
-
-# from .managers import UserManager
-
-# class User(AbstractUser):
-#     username = None
-#     email = models.EmailField(_("이메일"), unique=True)
-#     name = models.CharField(_("이름"), max_length=10)
-#     nickname = models.CharField(_("닉네임"), max_length=10)
-
-#     # profile_img = models.ImageField(_("프로필 사진"), upload_to=None, null=True, blank=True)
-#     # favorite_movie = models.CharField(_("인생 영화"), max_length=100, null=True, blank=True)
-
-#     objects = UserManager()
-
-#     USERNAME_FIELD = 'email'
-#     # REQUIRED_FIELDS: 필수로 받고 싶은 필드
-#     REQUIRED_FIELDS = []
-
-#     def __str__(self):
-#         return self.email
-
-
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, PermissionsMixin
+from .managers import UserManager
+from django.utils import timezone
 
-class User(AbstractUser):
+
+class User(AbstractUser, PermissionsMixin):
     username = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(unique=True)
     name = models.CharField(max_length=20)
     nickname = models.CharField(max_length=20, unique=True)
 
+    is_staff = models.BooleanField('Is staff', default=False)
+    is_active = models.BooleanField('Is active', default=True)
+    is_superuser = models.BooleanField('Is superuser', default=True)
+    joined_at = models.DateTimeField('Joined at', default=timezone.now)
+
+    objects = UserManager()
+
     USERNAME_FIELD = 'email'
-    REQUIRED_FIELDS = []
+    # AbstractUser 모델에서 username이 필수적이라 REQUIRED_FIELDS에 username을 포함하지 않으면
+    # superuser를 만들 때 username이 없어서 typeerror가 발생
+    REQUIRED_FIELDS = ['username']
