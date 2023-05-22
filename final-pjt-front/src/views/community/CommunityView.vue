@@ -1,6 +1,7 @@
 <template>
   <div>
     <h1>CommunityView</h1>
+    <router-link to="/community/create" class="btn btn-primary">CREATE</router-link>
     <CommunityList />
   </div>
 </template>
