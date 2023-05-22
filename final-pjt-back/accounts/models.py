@@ -10,6 +10,9 @@ class User(AbstractUser, PermissionsMixin):
     name = models.CharField(max_length=20)
     nickname = models.CharField(max_length=20, unique=True)
 
+    profile_img = models.ImageField(upload_to='profile/', null=True, blank=True)
+    favorite_movie = models.CharField(max_length=100, null=True, blank=True)
+
     is_staff = models.BooleanField('Is staff', default=False)
     is_active = models.BooleanField('Is active', default=True)
     is_superuser = models.BooleanField('Is superuser', default=True)

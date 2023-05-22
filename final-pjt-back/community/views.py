@@ -23,7 +23,6 @@ def post_list(request):
     elif request.method == 'POST':
         serializer = PostListSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            # serializer.save()
             serializer.save(user=request.user)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
@@ -34,7 +33,6 @@ def post_detail(request, post_pk):
 
     if request.method == 'GET':
         serializer = PostSerializer(post)
-        # print(serializer.data)
         return Response(serializer.data)
     
     elif request.method == 'DELETE':
@@ -58,6 +56,37 @@ def post_detail(request, post_pk):
 #         serializer.save(user=self.request.user)
 
 
-# @api_view(['POST'])
-# def comment_create(request, post_pk):
-#     pass
+@api_view(['GET', 'DELETE', 'PUT'])
+def comment_detail(request, comment_pk):
+    comment = get_object_or_404(Comment, pk=comment_pk)
+
+    if request.method == 'GET':
+        serializer = CommentSerializer(comment)
+        return Response(serializer.data)
+
+    elif request.method == 'DELETE':
+        if comment.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+
+        comment.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    elif request.method == 'PUT':
+        if comment.user != request.user:
+            return Response(status=status.HTTP_403_FORBIDDEN)
+        
+        serializer = CommentSerializer(comment, data=request.data)
+        if serializer.is_valid(raise_exception=True):
+            serializer.save()
+            return Response(serializer.data)
+
+    
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def comment_create(request, post_pk):
+    post = get_object_or_404(Post, pk=post_pk)
+    serializer = CommentSerializer(data=request.data)
+    if serializer.is_valid(raise_exception=True):
+        serializer.save(post=post, user=request.user)
+        return Response(serializer.data, status=status.HTTP_201_CREATED)

@@ -2,6 +2,7 @@ from django.conf import settings
 from django.contrib.auth import login, logout
 from rest_framework import views, generics, response, permissions, authentication
 from rest_framework.authtoken.models import Token
+from .models import User
 from .serializers import UserSerializer, LoginSerializer
 
 
@@ -41,8 +42,9 @@ class RegisterView(generics.CreateAPIView):
         return response.Response({'token': token.key, 'user': UserSerializer(user).data})
 
 
-class UserView(generics.RetrieveAPIView):
+class UserProfileView(generics.RetrieveUpdateAPIView):
     serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'pk'
 
     def get_object(self, *args, **kwargs):
