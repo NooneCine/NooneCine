@@ -5,7 +5,10 @@ app_name = 'posts'
 urlpatterns = [
     path('', views.post_list),
     path('<int:post_pk>/', views.post_detail),
-    # path('<int:post_pk>/comments/', views.comment_create),
+    # path('comments/', views.comment_list),
+    path('comments/<int:comment_pk>/', views.comment_detail),
+    path('posts/<int:post_pk>/comments/', views.comment_create),
+
 ]
 
 # from django.urls import path, include
