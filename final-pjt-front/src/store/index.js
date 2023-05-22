@@ -4,6 +4,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 import router from '../router'
+// import { keyFor } from 'core-js/fn/symbol'
 
 const API_URL = 'http://127.0.0.1:8000'
 const API_KEY = '75e6eeb5f868a25d86953e24abf22120'
@@ -17,10 +18,12 @@ export default new Vuex.Store({
   ],
   state: {
     token: null,
+    user: [],
     top_rated: [],
     now_playing: [],
     popular: [],
     posts: [],
+    post: null,
   },
   getters: {
     isLogin(state) {
@@ -28,8 +31,9 @@ export default new Vuex.Store({
     }
   },
   mutations: {
-    SAVE_TOKEN(state, token) {
-      state.token = token
+    SAVE_TOKEN(state, payload) {
+      state.token = payload.token
+      state.user = payload.user
       console.log(state.token)
       router.push({name : 'HomeView'}) // store/index.js $router 접근 불가 -> import를 해야함
     },
@@ -70,7 +74,7 @@ export default new Vuex.Store({
       })
         .then((res) => {
           console.log(res.data)
-          context.commit('SAVE_TOKEN', res.data.token)
+          context.commit('SAVE_TOKEN', res.data)
           router.push({name : 'LoginView'})
         })
         .catch((err) => {
@@ -89,7 +93,7 @@ export default new Vuex.Store({
         }
       })
       .then((res) => {
-        context.commit('SAVE_TOKEN', res.data.token)
+        context.commit('SAVE_TOKEN', res.data)
       })
       .catch((err) => console.log(err))
     },
@@ -122,9 +126,58 @@ export default new Vuex.Store({
       axios({
         method: 'get',
         url: `${API_URL}/community/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
       })
       .then((res) => {
         context.commit('GET_POSTS', res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    createPost(context, payload) {
+      const title = payload.title
+      const content = payload.content
+      const image = payload.image
+      const user = payload.user.id
+
+      let formData = new FormData()
+      formData.append('title', title)
+      formData.append('content', content)
+      formData.append('user', user)
+      formData.append('image', image)
+
+      axios({
+        method: 'post',
+        url: `${API_URL}/community/`,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then(() => {
+        router.push({ name: 'CommunityView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    getPostDetail(context, postId) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/${ postId }/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((res) => {
+        this.post = res.data
+        console.log(this.post)
+        // Vue.set(this.state, 'post', res.data)
+        // console.log(this.state.post)
       })
       .catch((err) => {
         console.log(err)
