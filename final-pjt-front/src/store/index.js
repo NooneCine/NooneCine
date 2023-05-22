@@ -20,6 +20,7 @@ export default new Vuex.Store({
     top_rated: [],
     now_playing: [],
     popular: [],
+    posts: [],
   },
   getters: {
     isLogin(state) {
@@ -47,7 +48,10 @@ export default new Vuex.Store({
         state.popular = payload.movie
         // console.log(state.popular)
       }
-    }
+    },
+    GET_POSTS(state, posts) {
+      state.posts = posts
+    },
   },
   actions: {
     signUp(context, payload) {
@@ -110,6 +114,20 @@ export default new Vuex.Store({
         .catch((err) => {
           console.log(err)
         })
+      })
+    },
+
+    // components/Community
+    getPosts(context) {
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/`,
+      })
+      .then((res) => {
+        context.commit('GET_POSTS', res.data)
+      })
+      .catch((err) => {
+        console.log(err)
       })
     }
   },

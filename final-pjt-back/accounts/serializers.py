@@ -86,7 +86,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.set_password(validated_data['password'])
         user.save()
         token = Token.objects.create(user=user)
-        return user
+        return {user, token}
         
 # 로그인
 class LoginSerializer(serializers.Serializer):
