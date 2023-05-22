@@ -30,14 +30,18 @@ export default {
       const title = this.title
       const content = this.content
       const user = this.$store.state.user
-      const image = this.image
+      let image = this.image
 
       if (!title) {
         alert('제목 입력해주세요')
         return
-      } else if (!content){
+      } else if (!content) {
         alert('내용 입력해주세요')
         return
+      }
+
+      if (!image) {
+        image = null
       }
 
       const payload = {
