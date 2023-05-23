@@ -196,6 +196,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
 # 기본 api url을 통일 시켜 번거로움을 줄이기 위해 /api/로 설정했음
 MEDIA_URL = '/media/'

@@ -8,8 +8,8 @@ urlpatterns = [
     # path('comments/', views.comment_list),
     path('comments/<int:comment_pk>/', views.comment_detail),
     path('posts/<int:post_pk>/comments/', views.comment_create),
-    path('posts/<int:post_pk>/like/', views.PostLikeView.as_view(), name='post-like'),
-    path('posts/<int:post_pk>/unlike/', views.PostLikeView.as_view(), name='post-unlike'),
+    # path('posts/<int:post_pk>/like/', views.PostLikeView.as_view(), name='post-like'),
+    # path('posts/<int:post_pk>/unlike/', views.PostLikeView.as_view(), name='post-unlike'),
 ]
 
 # from django.urls import path, include
