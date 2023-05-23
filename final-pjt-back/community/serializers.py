@@ -21,6 +21,8 @@ class PostSerializer(serializers.ModelSerializer):
     image = serializers.ImageField(use_url=True, required=False)
     user_nickname = serializers.CharField(source='user.nickname', read_only=True)
 
+    is_liked = serializers.SerializerMethodField()
+
     class Meta:
         model = Post
         fields = '__all__'
