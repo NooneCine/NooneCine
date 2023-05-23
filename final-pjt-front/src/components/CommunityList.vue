@@ -1,13 +1,17 @@
 <template>
   <div>
-    <div class="d-flex list-group list-group-flush">
-      <div class="list-group-item container d-flex justify-content-between align-items-center ps-1 pe-2">
-        <p>번호</p>
-        <p>제목</p>
-        <p>닉네임</p>
-      </div>
+    <table class="container">
+      <thead>
+        <div class="d-flex justify-content-between border-bottom">
+          <th scope="col">No.</th>
+          <th scope="col">제목</th>
+          <th scope="col">작성자</th>
+          <th scope="col">첨부파일</th>
+        </div>
+      </thead>
       <CommunityListItem v-for="post in posts" :key="post.id" :post="post"/>
-    </div>
+    </table>
+      <!-- <CommunityListItem v-for="post in posts" :key="post.id" :post="post"/> -->
   </div>
 </template>
 

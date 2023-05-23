@@ -7,11 +7,14 @@
       <h5>{{ post?.content }}</h5>
       <img :src="getImageUrl(post?.image)" alt="Post Image" width="50%"/>
     </div>
+    <router-link to="{ name: 'CommunityUpdateView', params: { id: post.id } }">수정</router-link><br>
+    <button @click="deletePost" class="btn btn-danger">삭제</button><br>
+
+    <router-link :to="{ name: 'CommunityView' }"> 목록으로 </router-link>
   </div>
 </template>
 
 <script>
-// import axios from 'axios'
 
 export default {
   name: 'CommunityDetailView',
@@ -24,6 +27,9 @@ export default {
     getImageUrl(filename) {
       return 'http://127.0.0.1:8000' + filename;
     },
+    deletePost() {
+      this.$store.dispatch('deletePost', this.post.id)
+    }
   },
 }
 </script>

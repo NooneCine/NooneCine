@@ -55,7 +55,16 @@ export default new Vuex.Store({
     GET_POSTS(state, posts) {
       state.posts = posts
     },
-
+    DELETE_POST(state, id) {
+      state.posts = state.posts.filter((post)=>{
+        return !(post.id===id)
+      })
+    },
+    // UPDATE_POST(state, id) {
+    //   state.posts = state.posts.filter((post)=>{
+    //     return !(post.id===id)
+    //   })
+    // },
   },
   actions: {
     signUp(context, payload) {
@@ -161,6 +170,52 @@ export default new Vuex.Store({
       .then((res) => {
         this.posts = res.data
         router.push({ name: 'CommunityView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    deletePost(context, id) {
+      axios({
+        method: 'delete',
+        url: `${API_URL}/community/${ id }/`,
+        headers: {
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then(() => {
+        context.commit('DELETE_POST', id)
+        router.push({ name: 'CommunityView' })
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
+    updatePost(context, payload) {
+      const id = payload.id
+      const title = payload.title
+      const content = payload.content
+      const image = payload.image
+      const user = payload.user.id
+
+      let formData = new FormData()
+      formData.append('title', title)
+      formData.append('content', content)
+      formData.append('user', user)
+      formData.append('image', image)
+
+      axios({
+        method: 'put',
+        url: `${API_URL}/community/${ id }/`,
+        data: formData,
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          Authorization: `Token ${ context.state.token }`
+        }
+      })
+      .then((res) => {
+        this.post = res.data
+        router.push({ name: 'CommunityDetailView', params: { id: id } })
       })
       .catch((err) => {
         console.log(err)
