@@ -20,6 +20,7 @@ class PostSerializer(serializers.ModelSerializer):
     comment_count = serializers.IntegerField(source='comment_set.count', read_only=True)
     # user = serializers.CharField(source='user', read_only=True)
     image = serializers.ImageField(use_url=True, required=False)
+    user_nickname = serializers.CharField(source='user.nickname', read_only=True)
 
     class Meta:
         model = Post

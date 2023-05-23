@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>CommunityView</h1>
+    <CommunityChips class="mt-5"/>
     <router-link to="/community/create" class="btn btn-primary">CREATE</router-link>
     <CommunityList />
   </div>
@@ -8,11 +8,13 @@
 
 <script>
 import CommunityList from '@/components/CommunityList.vue'
+import CommunityChips from '@/views/community/CommunityChips.vue'
 
 export default {
   name: 'CommunityView',
   components: {
     CommunityList,
+    CommunityChips,
   },
   computed: {
     isLogin() {
