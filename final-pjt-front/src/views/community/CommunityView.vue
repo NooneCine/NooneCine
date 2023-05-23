@@ -1,7 +1,7 @@
 <template>
   <div>
     <CommunityChips class="mt-5"/>
-    <router-link to="/community/create" class="btn btn-primary">CREATE</router-link>
+    <router-link to="/community/create" class="btn btn-lg btn-primary m-4 rounded-pill">CREATE</router-link>
     <CommunityList />
   </div>
 </template>

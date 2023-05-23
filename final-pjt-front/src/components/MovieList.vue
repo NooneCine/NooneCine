@@ -44,7 +44,6 @@ export default {
     async axiosRequest() {
       const arr = ['top_rated', 'now_playing', 'popular']
       for (let i=0; i < arr.length; i++) {
-        console.log(i)
         try {
           this.$store.dispatch('getMovieList', arr[i])
         } catch (err) {

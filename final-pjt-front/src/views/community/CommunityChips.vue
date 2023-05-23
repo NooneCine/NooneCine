@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CommunityChipsItem v-for="post in posts" :key="post.id" :post="post" class="chips"/>
+    <CommunityChipsItem v-for="post in limitedPosts" :key="post.id" :post="post" class="chips"/>
   </div>
 </template>
 
@@ -14,15 +14,15 @@ export default {
   },
   computed: {
     posts() {
-      return this.$store.state.posts
+      return this.$store.state.posts.slice().reverse()
     },
-    // limitedPosts() {
-    //   if (window.innerWidth > 576) {
-    //     return this.posts.slice(-6).reverse()
-    //   } else {
-    //     return this.posts.slice(-2).reverse()
-    //   }
-    // }
+    limitedPosts() {
+      if (window.innerWidth > 576) {
+        return this.posts.slice(-6)
+      } else {
+        return this.posts.slice(-2)
+      }
+    }
   },
   created() {
     console.log(this.limitedPosts)
