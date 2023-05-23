@@ -1,5 +1,7 @@
 import Vue from 'vue'
+import store from '../store'
 import VueRouter from 'vue-router'
+import axios from 'axios'
 import HomeView from '../views/home/HomeView.vue'
 import MovieView from '../views/movies/MovieView.vue'
 import CommunityView from '../views/community/CommunityView.vue'
@@ -36,7 +38,26 @@ const routes = [
   {
     path: '/community/:id',
     name: 'CommunityDetailView',
-    component: CommunityDetailView
+    component: CommunityDetailView,
+    beforeEnter: (to, from, next) => {
+      const API_URL = 'http://127.0.0.1:8000'
+
+      axios({
+        method: 'get',
+        url: `${API_URL}/community/${ to.params.id }/`,
+        headers: {
+          Authorization: `Token ${ store.state.token }`
+        }
+      })
+      .then((res) => {
+        store.state.post = res.data
+        next()
+      })
+      .catch((err) => {
+        console.log(err)
+        next(false)
+      })
+    }
   },
   {
     path: '/my-page',

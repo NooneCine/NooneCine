@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <HeaderView />
-
-    <router-view/>
+    <HeaderView class="fixed-top header"/>
+    <div class="box"></div>
+    <router-view />
     <FooterView />
   </div>
 </template>
@@ -27,5 +27,13 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+.header {
+  background-color: white;
+}
+
+.box {
+  height: 68px;
 }
 </style>
