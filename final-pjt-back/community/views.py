@@ -4,6 +4,7 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.views import APIView
 
 from rest_framework import status
 from django.shortcuts import get_object_or_404, get_list_or_404
@@ -80,7 +81,6 @@ def comment_detail(request, comment_pk):
             serializer.save()
             return Response(serializer.data)
 
-    
 
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
@@ -90,3 +90,17 @@ def comment_create(request, post_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(post=post, user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+class PostLikeView(APIView):
+    permission_classes = (IsAuthenticated,)
+
+    def post(self, request, post_pk):
+        post = get_object_or_404(Post, pk=post_pk)
+        post.like(request.user)
+        return Response({'message': 'Post liked'})
+
+    def delete(self, request, post_pk):
+        post = get_object_or_404(Post, pk=post_pk)
+        post.unlike(request.user)
+        return Response({'message': 'Post unliked'})
