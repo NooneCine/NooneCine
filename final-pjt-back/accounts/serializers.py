@@ -21,9 +21,12 @@ class LoginSerializer(serializers.Serializer):
         return {'user': user}
 
 
+
+DEFAULT_PROFILE_IMAGE = './profile/default.png'
+
 class UserSerializer(serializers.ModelSerializer):
     # 기본값이 True라서 안해줘도 되는 것 같긴 함
-    profile_img = serializers.ImageField(use_url=True)
+    profile_img = serializers.ImageField(use_url=True, required=False, write_only=True)
 
     class Meta:
         model = User
@@ -52,8 +55,17 @@ class UserSerializer(serializers.ModelSerializer):
         return validate_username(value)
 
     def create(self, validated_data):
-        return User.objects.create_user(
-                    validated_data.pop('email'),
-                    validated_data.pop('password'),
-                    **validated_data
-                )
+        profile_img = validated_data.pop('profile_img', None)
+        user = User.objects.create_user(
+            validated_data.pop('email'),
+            validated_data.pop('password'),
+            **validated_data
+        )
+
+        if profile_img:
+            user.profile_img = profile_img
+        else:
+            user.profile_img = DEFAULT_PROFILE_IMAGE
+        user.save()
+        
+        return user
