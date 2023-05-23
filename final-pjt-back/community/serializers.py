@@ -29,7 +29,7 @@ class PostSerializer(serializers.ModelSerializer):
     user_nickname = serializers.CharField(source='user.nickname', read_only=True)
     
     likes_count = serializers.SerializerMethodField()
-    liked = serializers.SerializerMethodField()
+    # liked = serializers.SerializerMethodField()
 
     def get_likes_count(self, obj):
         return obj.likes.count()
