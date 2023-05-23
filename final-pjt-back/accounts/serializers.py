@@ -22,6 +22,8 @@ class LoginSerializer(serializers.Serializer):
 
 
 class UserSerializer(serializers.ModelSerializer):
+    # 기본값이 True라서 안해줘도 되는 것 같긴 함
+    profile_img = serializers.ImageField(use_url=True)
 
     class Meta:
         model = User
@@ -41,8 +43,8 @@ class UserSerializer(serializers.ModelSerializer):
             'password': {'required': True, 'write_only': True},
             'name': {'required': True},
             'nickname': {'required': True},
-            'profile_img': {},
-            'favorite_movie': {}
+            # 'profile_img': {},
+            # 'favorite_movie': {}
         }
 
     @staticmethod
