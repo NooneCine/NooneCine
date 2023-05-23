@@ -26,7 +26,7 @@ DEFAULT_PROFILE_IMAGE = './profile/default.png'
 
 class UserSerializer(serializers.ModelSerializer):
     # 기본값이 True라서 안해줘도 되는 것 같긴 함
-    profile_img = serializers.ImageField(use_url=True, required=False, write_only=True)
+    profile_img = serializers.ImageField(use_url=True, required=False)
 
     class Meta:
         model = User
