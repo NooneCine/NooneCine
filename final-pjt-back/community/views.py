@@ -28,7 +28,7 @@ def post_list(request):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-@api_view(['GET', 'DELETE', 'PUT'])
+@api_view(['GET', 'DELETE', 'PUT', 'POST'])
 def post_detail(request, post_pk):
     post = get_object_or_404(Post, pk=post_pk)
 
@@ -45,16 +45,16 @@ def post_detail(request, post_pk):
         if serializer.is_valid(raise_exception=True):
             serializer.save()
             return Response(serializer.data)
+    
+    elif request.method == 'POST':
+        user = request.user
+        if post.likes.filter(pk=user.pk).exists():
+            post.likes.remove(user)
+            return Response({'message': '좋아요가 취소되었습니다.'}, status=status.HTTP_200_OK)
+        else:
+            post.likes.add(user)
+            return Response({'message': '좋아요가 추가되었습니다.'}, status=status.HTTP_200_OK)
 
-
-# class PostViewSet(ModelViewSet):
-#     queryset = Post.objects.all()
-#     serializer_class = PostSerializer
-#     authentication_classes = [TokenAuthentication]
-#     permission_classes = [IsAuthenticated]
-
-#     def perform_create(self, serializer):
-#         serializer.save(user=self.request.user)
 
 
 @api_view(['GET', 'DELETE', 'PUT'])
@@ -92,15 +92,17 @@ def comment_create(request, post_pk):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 
-class PostLikeView(APIView):
-    permission_classes = (IsAuthenticated,)
+# class PostLikeView(APIView):
+#     permission_classes = (IsAuthenticated,)
 
-    def post(self, request, post_pk):
-        post = get_object_or_404(Post, pk=post_pk)
-        post.like(request.user)
-        return Response({'message': 'Post liked'})
+#     def post(self, request, post_pk):
+#         post = get_object_or_404(Post, pk=post_pk)
+#         post.like(request.user)
+#         serializer = PostSerializer(post)
+#         return Response(serializer.data)
 
-    def delete(self, request, post_pk):
-        post = get_object_or_404(Post, pk=post_pk)
-        post.unlike(request.user)
-        return Response({'message': 'Post unliked'})
+#     def delete(self, request, post_pk):
+#         post = get_object_or_404(Post, pk=post_pk)
+#         post.unlike(request.user)
+#         serializer = PostSerializer(post)
+#         return Response(serializer.data)
