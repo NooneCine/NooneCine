@@ -39,6 +39,7 @@ export default new Vuex.Store({
     },
     LOGOUT(state) {
       state.token = null
+      state.user = []
       console.log(state.token)
       location.reload()
     },
@@ -55,6 +56,9 @@ export default new Vuex.Store({
     },
     GET_POSTS(state, posts) {
       state.posts = posts
+    },
+    SET_POST(state, postData) {
+      state.post = postData;
     },
   },
   actions: {
@@ -158,7 +162,8 @@ export default new Vuex.Store({
           Authorization: `Token ${ context.state.token }`
         }
       })
-      .then(() => {
+      .then((res) => {
+        this.posts = res.data
         router.push({ name: 'CommunityView' })
       })
       .catch((err) => {
@@ -174,10 +179,8 @@ export default new Vuex.Store({
         }
       })
       .then((res) => {
-        this.post = res.data
-        console.log(this.post)
-        // Vue.set(this.state, 'post', res.data)
-        // console.log(this.state.post)
+        context.commit('SET_POST', res.data)
+        console.log(context.state.post)
       })
       .catch((err) => {
         console.log(err)

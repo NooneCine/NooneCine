@@ -5,7 +5,7 @@
       <h5>{{ post.title }}</h5>
       <p>{{ post.user_nickname }}</p>
       <h5>{{ post.content }}</h5>
-      <img :src="post.image" alt="Post Image" />
+      <img :src="getImageUrl(post.image)" alt="Post Image" />
     </div>
   </div>
 </template>
@@ -24,7 +24,10 @@ export default {
   methods: {
     getPostDetail(postId) {
       this.$store.dispatch('getPostDetail', postId)
-    }
+    },
+    getImageUrl(filename) {
+      return 'http://127.0.0.1:8000' + filename;
+    },
   }
 }
 </script>
