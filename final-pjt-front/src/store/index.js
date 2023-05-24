@@ -4,6 +4,8 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 import router from '../router'
+import genre from './modules/genre'
+
 
 const API_URL = 'http://127.0.0.1:8000'
 const API_KEY = '75e6eeb5f868a25d86953e24abf22120'
@@ -235,5 +237,6 @@ export default new Vuex.Store({
     },
   },
   modules: {
+    genre
   }
 })
