@@ -10,7 +10,7 @@ class Actor(models.Model):
     name = models.CharField(max_length=100, null=True)
     original_name = models.CharField(max_length=300, null=True)
     profile_path = models.CharField(max_length=300, null=True)
-    gender = models.models.IntegerField()
+    gender = models.IntegerField()
     birth = models.DateField()
     fan = models.ManyToManyField(settings.AUTH_USER_MODEL)
     
@@ -30,9 +30,9 @@ class Movie(models.Model):
     genres = models.ManyToManyField(Genre, related_name='movies')
     actors = models.ManyToManyField(Actor, related_name='movies')
     
-    likes = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='likes_movies')
     watched = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='watched_movies')
-    noonecine = models.ManyToManyField(settings.AUTH_USER_MODEL)
+    noonecine = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='noone_movies')
 
 
 class Review(models.Model):

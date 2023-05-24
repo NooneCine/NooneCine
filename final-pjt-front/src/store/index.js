@@ -156,7 +156,9 @@ export default new Vuex.Store({
       formData.append('title', title)
       formData.append('content', content)
       formData.append('user', user)
-      formData.append('image', image)
+      if (image) {
+        formData.append('image', image);
+      }
 
       axios({
         method: 'post',
