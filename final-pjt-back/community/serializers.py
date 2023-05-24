@@ -47,6 +47,7 @@ class PostSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'title': {'required': True},
             'content': {'required': True},
+            'image': {'required': True},
         }
     
     # def to_representation(self, instance):
