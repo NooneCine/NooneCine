@@ -1,6 +1,6 @@
 <template>
   <div>
-    <ul class="list-group">
+    <ul class="list-group item">
       <CommunityListItem v-for="post in posts" :key="post.id" :post="post"/>
     </ul>
   </div>

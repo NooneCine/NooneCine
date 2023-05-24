@@ -1,12 +1,13 @@
 <template>
-  <div>
+  <div class="mx-5">
     <router-link :to="{ name: 'CommunityDetailView', params: { id: post.id } }" class="list-group-item list-group-item-action">
-      <div class="d-flex w-100 justify-content-between">
-        <h5 class="mb-1">{{ post.title }}</h5>
+    <div class="mx-3">
+      <div class="d-flex w-100 justify-content-between my-2">
+        <h4>{{ post.title }}</h4>
         <small>{{ formatTime(post.created_at) }}</small>
       </div>
-      <p class="mb-1">{{ post.content }}</p>
-      <small class="d-flex w-100 justify-content-left">
+      <div class="my-2 text-start overflow-text">{{ post.content }}</div>
+        <small class="d-flex w-100 justify-content-left my-2">
         <span>
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person" viewBox="0 0 16 16">
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4Zm-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10c-2.29 0-3.516.68-4.168 1.332-.678.678-.83 1.418-.832 1.664h10Z"/>
@@ -27,6 +28,7 @@
           {{ post.likes_count }}
         </span>
       </small>
+    </div>
     </router-link>
   </div>
 </template>
@@ -53,7 +55,12 @@ export default {
       } else {
         return `${daysDiff}일 전`;
       }
-    }
+    },
+    methods: {
+    getImageUrl(filename) {
+      return 'http://127.0.0.1:8000' + filename;
+    },
+  }
   }
 }
 </script>
@@ -62,5 +69,12 @@ export default {
 a {
   margin: 0;
   color: black;
+}
+
+.overflow-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
 }
 </style>

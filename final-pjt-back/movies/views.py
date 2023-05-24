@@ -14,11 +14,22 @@ def movie_list(request):
     return Response(serializer.data)
 
 
-@api_view(['GET'])
+@api_view(['GET', 'POST'])
 def movie_detail(request, movie_pk):
-    movie = get_object_or_404(Movie, pk=movie_pk)
-    serializer = MovieDetailSerializer(movie)
-    return Response(serializer.data)
+    if request.method == 'GET':
+        movie = get_object_or_404(Movie, pk=movie_pk)
+        serializer = MovieDetailSerializer(movie)
+        return Response(serializer.data)
+    
+    # 좋아요 추가하려는 흔적
+    elif request.method == 'POST':
+        user = request.user
+        if movie.likes.filter(pk=user.pk).exists():
+            movie.likes.remove(user)
+            return Response(status=status.HTTP_200_OK)
+        else:
+            movie.likes.add(user)
+            return Response(status=status.HTTP_200_OK)
 
 
 @api_view(['GET'])
