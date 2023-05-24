@@ -4,14 +4,18 @@ from .models import Post, Comment
 class PostListSerializer(serializers.ModelSerializer):
     user_nickname = serializers.CharField(source='user.nickname', read_only=True)
     likes_count = serializers.SerializerMethodField()
+    comments_count = serializers.SerializerMethodField()
 
     def get_likes_count(self, obj):
         return obj.likes.count()
 
+    def get_comments_count(self, obj):
+        return obj.comment_set.count()
+        
     class Meta:
         model = Post
         fields = '__all__'
-        read_only_fields = ('likes_count',)
+        read_only_fields = ('likes_count', 'comments_count',)
 
 
 class CommentSerializer(serializers.ModelSerializer):
@@ -31,36 +35,22 @@ class PostSerializer(serializers.ModelSerializer):
     user_nickname = serializers.CharField(source='user.nickname', read_only=True)
     
     likes_count = serializers.SerializerMethodField()
-    # liked = serializers.SerializerMethodField()
+    liked_users = serializers.SerializerMethodField()
 
     def get_likes_count(self, obj):
         return obj.likes.count()
 
-    def get_liked(self, obj):
-        request = self.context.get('request')
-        if request and request.user.is_authenticated:
-            return obj.likes.filter(pk=request.user.pk).exists()
-        return False
+    def get_liked_users(self, obj):
+        return obj.get_liked_users()
+
 
     class Meta:
         model = Post
         fields = '__all__'
-        read_only_fields = ('user', 'comment_set', 'comment_count', 'likes', 'likes_count', 'liked',)
+        read_only_fields = ('user', 'comment_set', 'comment_count', 'likes', 'likes_count', 'liked_users',)
         extra_kwargs = {
             'title': {'required': True},
             'content': {'required': True},
             'image': {'required': True},
         }
     
-    # def to_representation(self, instance):
-    #     representation = super().to_representation(instance)
-    #     if not representation['image']:
-    #         representation['image'] =  static('default.png')  # 기본 이미지 경로를 지정
-    #     return representation
-    
-    # def get_image(self, obj):
-    #     if obj.image:
-    #         return obj.image.url
-    #     return self.context['request'].build_absolute_uri(DEFAULT_IMAGE)
-
-
