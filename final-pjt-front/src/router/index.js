@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import axios from 'axios'
 import HomeView from '../views/home/HomeView.vue'
 import MovieView from '../views/movies/MovieView.vue'
+import MovieDetailView from '../views/movies/MovieDetailView.vue'
 import CommunityView from '../views/community/CommunityView.vue'
 import CommunityCreateView from '../views/community/CommunityCreateView.vue'
 import CommunityUpdateView from '../views/community/CommunityUpdateView.vue'
@@ -25,6 +26,11 @@ const routes = [
     path: '/movie',
     name: 'MovieView',
     component: MovieView
+  },
+  {
+    path: '/movie/:id',
+    name: 'MovieDetailView',
+    component: MovieDetailView
   },
   {
     path: '/community',
