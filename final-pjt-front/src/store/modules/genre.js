@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const state = {
   currentQuestionIndex: 0,
   questions: [
@@ -27,7 +29,7 @@ const state = {
     }
   ],
   recommendedGenre: null,
-  selectedAnswerId: null
+  recommendMovieList: [],
 };
 
 const mutations = {
@@ -39,7 +41,10 @@ const mutations = {
   },
   setSelectedAnswerId(state, { questionIndex, answerId }) {
     state.questions[questionIndex].selectedAnswerId = answerId;
-  }
+  },
+  RECOMMEND_LIST(state, payload) {
+    state.recommendMovieList = payload
+  },
 };
 
 const actions = {
@@ -50,35 +55,35 @@ const actions = {
   },
   selectAnswer({ commit, dispatch, state }, answer) {
     const genreConditions = {
-      '1-4-7': '가족 영화',
-      '1-4-8': '코미디',
-      '1-4-9': '로맨스',
-      '1-5-7': '미스터리',
-      '1-5-8': '애니메이션',
-      '1-5-9': '판타지',
-      '1-6-7': '음악',
-      '1-6-8': '모험',
-      '1-6-9': '다큐멘터리',
+      '1-4-7': 'Family',
+      '1-4-8': 'Comedy',
+      '1-4-9': 'Romance',
+      '1-5-7': 'Mystery',
+      '1-5-8': 'Animation',
+      '1-5-9': 'Fantasy',
+      '1-6-7': 'Music',
+      '1-6-8': 'Adventure',
+      '1-6-9': 'Documentary',
 
-      '2-4-7': '드라마',
-      '2-4-8': '공상과학',
-      '2-4-9': '음악',
-      '2-5-7': '스릴러',
-      '2-5-8': '범죄',
-      '2-5-9': '액션',
-      '2-6-7': '공포',
-      '2-6-8': '전쟁',
-      '2-6-9': '로맨스',
+      '2-4-7': 'Drama',
+      '2-4-8': 'Science Fiction',
+      '2-4-9': 'Music',
+      '2-5-7': 'Thriller',
+      '2-5-8': 'Crime',
+      '2-5-9': 'Action',
+      '2-6-7': 'Horror',
+      '2-6-8': 'War',
+      '2-6-9': 'Romance',
 
-      '3-4-7': '스릴러',
-      '3-4-8': '액션',
-      '3-4-9': '공상과학',
-      '3-5-7': '로맨스',
-      '3-5-8': '미스터리',
-      '3-5-9': '드라마',
-      '3-6-7': '모험',
-      '3-6-8': '애니메이션',
-      '3-6-9': '다큐멘터리',
+      '3-4-7': 'Thriller',
+      '3-4-8': 'Action',
+      '3-4-9': 'Science Fiction',
+      '3-5-7': 'Romance',
+      '3-5-8': 'Mystery',
+      '3-5-9': 'Drama',
+      '3-6-7': 'Adventure',
+      '3-6-8': 'Animation',
+      '3-6-9': 'Documentary',
     }
 
     // Update the state with the selected answer
@@ -96,10 +101,29 @@ const actions = {
 
       const selectedAnswers = state.questions.map((q) => q.selectedAnswerId)
       const selectedAnswerIds = selectedAnswers.join('-')
-      const recommendedGenre = genreConditions[selectedAnswerIds] || '기타 장르'
+      const recommendedGenre = genreConditions[selectedAnswerIds] || 'Western'
 
       commit('setRecommendedGenre', recommendedGenre)
     }
+  },
+  recommendMovieList({ commit }) {
+    axios({
+      method: 'get',
+      headers: {
+        accept: 'application/json',
+        Authorization: 'sha512-DphBw5+2H9Cwbb9iZBQKHUicsO2/7GJuWEl3sfiJLkA9OR1j5ujcm5EwCt++e2E69s5QSyllAQfj3T57Fnxpjg==?I84I'
+      },
+      url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${ state.recommendedGenre }`
+    })
+    .then((res) => {
+      commit('RECOMMEND_LIST', res.data.results)
+      console.log(res.data)
+      console.log(state.recommendedGenre)
+    })
+    .catch((err) => {
+      console.log(err)
+      console.log(state.recommendedGenre)
+    })
   }
 }
    

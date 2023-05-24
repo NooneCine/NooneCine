@@ -12,6 +12,10 @@
       </div>
       <div v-else>
         <h3>추천 장르 : {{ recommendedGenre }}</h3>
+        <button @click="recommendGetMovie">{{ recommendedGenre }} 영화 추천 받기</button>
+        <div v-if="recommendMovieList">
+          <MovieListItem v-for="movie in recommendMovieList" :key="movie.id" :movie="movie" :poster="movie.poster_path" class="posters"/>
+        </div>
         <button @click="restart" class="btn btn-primary rounded-pill">Restart</button>
       </div>
     </div>
@@ -19,12 +23,18 @@
 </template>
 
 <script>
+import MovieListItem from '@/components/MovieListItem.vue'
+
 export default {
   name: 'HomeView',
+  components: {
+    MovieListItem,
+  },
   data() {
     return {
       isInitialLoad: true,
-      start: false
+      start: false,
+      recommendMovieList: this.$store.state.genre.recommendMovieList
     }
   },
   computed: {
@@ -52,11 +62,14 @@ export default {
     startButton() {
       this.start = true
     },
+    recommendGetMovie() {
+      this.$store.dispatch('genre/recommendMovieList')
+    }
   },
   created() {
     // Initialize the genre recommendation process
     this.$store.dispatch('genre/startRecommendation')
-  }
+  },
 };
 </script>
 
