@@ -15,6 +15,8 @@ class PostListSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    user_nickname = serializers.CharField(source='user.nickname', read_only=True)
+    
     class Meta:
         model = Comment
         fields = '__all__'
