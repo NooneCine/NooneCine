@@ -13,6 +13,9 @@ class Post(models.Model):
     # # 좋아요 기능 추가
     likes = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='liked_posts', blank=True)
 
+    def get_liked_users(self):
+        return self.likes.values_list('nickname', flat=True)
+
     # # 좋아요 추가
     # def like(self, user):
     #     self.likes.add(user)
