@@ -1,15 +1,26 @@
 <template>
   <div>
-    <h1>CommunityCreateView</h1>
-    <form @submit.prevent="createPost" enctype="multipart/form-data">
-      <label for="title">제목 : </label>
-      <input type="text" id="title" v-model.trim="title"><br>
-      <label for="content">내용 : </label>
-      <textarea id="content" cols="30" rows="10" v-model="content"></textarea><br>
+    <h1 class="mt-5">CommunityCreateView</h1>
+    <form @submit.prevent="createPost" enctype="multipart/form-data" class="container">
+      <div class="form-floating mt-5">
+        <input type="text" id="title" v-model.trim="title" class="form-control">
+        <label for="title">제목</label>
+      </div>
+      <div class="form-floating mt-4">
+        <textarea id="content" cols="30" rows="10" v-model="content" class="form-control custom-textarea"></textarea>
+        <label for="content">내용</label>
+      </div>
       <div>
         <input type="file" @change="handleFileUpload" ref="contentImage">
       </div>
-      <input type="submit" id="submit">
+      <!-- <div class="file-upload mt-5">
+        <input type="file" @change="handleFileUpload" ref="contentImage" class="file-upload-input">
+        <label for="contentImage" class="file-upload-button btn btn-warning">
+          이미지 업로드
+        </label>
+        <span class="selected-file ms-3" v-if="selectedFileName">{{ selectedFileName }}</span>
+      </div> -->
+      <input type="submit" id="submit-button" class="btn btn-primary rounded-pill mt-5">
     </form>
   </div>
 </template>
@@ -55,12 +66,14 @@ export default {
       })
     },
     handleFileUpload(event) {
-      this.image = event.target.files[0];
+      this.image = event.target.files[0]
     },
   }
 }
 </script>
 
-<style>
-
+<style scoped>
+.custom-textarea {
+  height: 200px; /* 원하는 높이 값으로 설정 */
+}
 </style>
