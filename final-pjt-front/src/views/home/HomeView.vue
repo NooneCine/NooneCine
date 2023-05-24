@@ -12,6 +12,11 @@
       </div>
       <div v-else>
         <h3>추천 장르 : {{ recommendedGenre }}</h3>
+        <button @click="getRandomMovie()" class="btn btn-primary rounded-pill">다른 영화 보기</button>
+        <div v-if="recommendMovieList">
+          <MovieListItem v-for="movie in randomMovieList" :key="movie.id" :movie="movie" :poster="movie.poster_path" class="posters"/>
+        </div>
+
         <button @click="restart" class="btn btn-primary rounded-pill">Restart</button>
       </div>
     </div>
@@ -19,13 +24,23 @@
 </template>
 
 <script>
+import MovieListItem from '@/components/MovieListItem.vue'
+
 export default {
   name: 'HomeView',
+  components: {
+    MovieListItem,
+  },
   data() {
     return {
       isInitialLoad: true,
-      start: false
+      start: false,
+      recommendMovieList: [],
+      randomMovieList: [],
     }
+  },
+  mounted() {
+    this.recommendGetMovie();
   },
   computed: {
     currentQuestionIndex() {
@@ -39,11 +54,14 @@ export default {
     },
     shouldShake() {
       return this.isInitialLoad
-    }
+    },
   },
   methods: {
     selectAnswer(answer) {
       this.$store.dispatch('genre/selectAnswer', answer)
+      if (this.currentQuestionIndex === this.questions.length - 1) {
+        this.recommendGetMovie()
+      }
     },
     restart() {
       this.$store.dispatch('genre/restart')
@@ -52,11 +70,26 @@ export default {
     startButton() {
       this.start = true
     },
+    recommendGetMovie() {
+      this.$store.dispatch('genre/recommendMovieList')
+        .then(() => {
+          this.recommendMovieList = this.$store.state.genre.recommendMovieList 
+          this.isInitialLoad = false
+          this.getRandomMovie()
+        })
+        .catch((error) => {
+          console.log(error)
+        })
+    },
+    getRandomMovie() {
+      const shuffledList = this.$store.state.genre.recommendMovieList.sort(() => 0.5 - Math.random())
+      this.randomMovieList = shuffledList.slice(0, 5)
+    },
   },
   created() {
     // Initialize the genre recommendation process
     this.$store.dispatch('genre/startRecommendation')
-  }
+  },
 };
 </script>
 
