@@ -4,7 +4,7 @@
       <td class="row">{{ post.id }}</td>
       <th>{{ post.title }}</th>
       <td>{{ post.user_nickname }}</td>
-      <td>{{ post.image? 0:X }}</td>
+      <td>{{ post.image? 0 : 'X' }}</td>
     </router-link>
   </div>
 </template>

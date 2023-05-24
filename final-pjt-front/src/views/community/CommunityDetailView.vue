@@ -35,6 +35,25 @@
         <h5 class="mt-5">{{ post?.content }}</h5>
       </div>
     </div>
+    <div>
+      <p>댓글 목록</p>
+      <p>총 댓글: {{post.comment_count}}개</p>
+      <div v-if="post?.comment_set">
+        <p v-for="comment in post.comment_set" :key="comment.id">
+          댓글 내용: {{ comment.content }}
+          댓글 작성자: {{ comment.user_nickname }}
+          <button v-if="comment.user === user.id" @click="deleteComment(comment.id)" class="btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-trash3-fill" viewBox="0 0 16 16">
+              <path d="M11 1.5v1h3.5a.5.5 0 0 1 0 1h-.538l-.853 10.66A2 2 0 0 1 11.115 16h-6.23a2 2 0 0 1-1.994-1.84L2.038 3.5H1.5a.5.5 0 0 1 0-1H5v-1A1.5 1.5 0 0 1 6.5 0h3A1.5 1.5 0 0 1 11 1.5Zm-5 0v1h4v-1a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5ZM4.5 5.029l.5 8.5a.5.5 0 1 0 .998-.06l-.5-8.5a.5.5 0 1 0-.998.06Zm6.53-.528a.5.5 0 0 0-.528.47l-.5 8.5a.5.5 0 0 0 .998.058l.5-8.5a.5.5 0 0 0-.47-.528ZM8 4.5a.5.5 0 0 0-.5.5v8.5a.5.5 0 0 0 1 0V5a.5.5 0 0 0-.5-.5Z"/>
+            </svg>
+          </button>
+        </p>
+      </div>
+      <form @submit="createComment">
+          <textarea v-model="commentText" placeholder="댓글을 입력하세요"></textarea>
+          <button type="submit">댓글 작성</button>
+      </form>
+    </div>
   </div>
 </template>
 
@@ -47,6 +66,7 @@ export default {
     return {
       liked: false,
       user: this.$store.state.user,
+      commentText: ''
     }
   },
   computed: {
@@ -108,7 +128,50 @@ export default {
       .catch ((err) => {
         console.log(err)
       })
-    }
+    },
+    createComment() {   
+      const commentText = this.commentText
+
+      if (!commentText) {
+        alert('내용 입력해주세요.')
+        return
+      }
+
+      axios({
+        method: 'post',
+        url: `http://127.0.0.1:8000/community/posts/${ this.post.id }/comments/`,
+        headers: {
+            Authorization: `Token ${this.$store.state.token}`
+        },
+        data: {
+            post: this.post.id,
+            content: this.commentText
+        }
+        })
+        .then((res) => {
+          console.log(res)
+          this.commentText = ''
+        })
+        .catch((err) => {
+          console.log(err)
+        });
+    },
+    deleteComment(commentId) {
+      axios({
+        method: 'delete',
+        url: `http://127.0.0.1:8000/community/comments/${commentId}/`,
+        headers: {
+          Authorization: `Token ${this.$store.state.token}`
+        }
+      })
+      .then(() => {
+        // console.log(this.post)
+        window.location.reload()
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    },
   },
 }
 </script>
