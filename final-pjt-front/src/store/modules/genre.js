@@ -40,7 +40,7 @@ const mutations = {
     state.recommendedGenre = genre
   },
   setSelectedAnswerId(state, { questionIndex, answerId }) {
-    state.questions[questionIndex].selectedAnswerId = answerId;
+    state.questions[questionIndex].selectedAnswerId = answerId
   },
   RECOMMEND_LIST(state, payload) {
     state.recommendMovieList = payload
@@ -107,22 +107,24 @@ const actions = {
     }
   },
   recommendMovieList({ commit }) {
+    const sortOptions = ['revenue', 'popularity', 'primary_release_date', 'vote_average']
+    const randomSort = sortOptions[Math.floor(Math.random() * sortOptions.length)]
+
     axios({
       method: 'get',
       headers: {
         accept: 'application/json',
-        Authorization: 'sha512-DphBw5+2H9Cwbb9iZBQKHUicsO2/7GJuWEl3sfiJLkA9OR1j5ujcm5EwCt++e2E69s5QSyllAQfj3T57Fnxpjg==?I84I'
+        Authorization: 'Authorization: Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NWU2ZWViNWY4NjhhMjVkODY5NTNlMjRhYmYyMjEyMCIsInN1YiI6IjYzZDMzNGRiY2I3MWI4MDA4OTZjZmIzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.nGBlA4h6pmnikj7UL406_zeDsmdDj_eevOjGU1MI84I'
       },
-      url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&with_genres=${ state.recommendedGenre }`
+      url: `https://api.themoviedb.org/3/discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=${ randomSort }.desc&with_genres=${ state.recommendedGenre }`
     })
     .then((res) => {
       commit('RECOMMEND_LIST', res.data.results)
-      console.log(res.data)
-      console.log(state.recommendedGenre)
+      console.log(randomSort)
+      console.log(res.data.results)
     })
     .catch((err) => {
       console.log(err)
-      console.log(state.recommendedGenre)
     })
   }
 }
