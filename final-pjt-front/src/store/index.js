@@ -60,11 +60,21 @@ export default new Vuex.Store({
         return !(post.id===id)
       })
     },
-    // UPDATE_POST(state, id) {
-    //   state.posts = state.posts.filter((post)=>{
-    //     return !(post.id===id)
-    //   })
-    // },
+    LIKE_POST(state) {
+      const likedPost = state.posts.find(post => post.id === state.post.id);
+      if (likedPost) {
+        likedPost.likes.push(state.user.id);
+      }
+    },
+    UNLIKE_POST(state) {
+      const likedPost = state.posts.find(post => post.id === state.post.id);
+      if (likedPost) {
+        const index = likedPost.likes.indexOf(state.user.id);
+        if (index !== -1) {
+          likedPost.likes.splice(index, 1);
+        }
+      }
+    },
   },
   actions: {
     signUp(context, payload) {

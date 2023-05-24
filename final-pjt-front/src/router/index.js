@@ -38,11 +38,6 @@ const routes = [
   },
   {
     path: '/community/:id',
-    name: 'CommunityUpdateView',
-    component: CommunityUpdateView
-  },
-  {
-    path: '/community/:id',
     name: 'CommunityDetailView',
     component: CommunityDetailView,
     beforeEnter: (to, from, next) => {
@@ -64,6 +59,11 @@ const routes = [
         next(false)
       })
     }
+  },
+  {
+    path: '/community/:id/update',
+    name: 'CommunityUpdateView',
+    component: CommunityUpdateView
   },
   {
     path: '/my-page',
