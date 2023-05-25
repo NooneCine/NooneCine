@@ -10,6 +10,7 @@ import CommunityCreateView from '../views/community/CommunityCreateView.vue'
 import CommunityUpdateView from '../views/community/CommunityUpdateView.vue'
 import CommunityDetailView from '../views/community/CommunityDetailView.vue'
 import MypageView from '../views/accounts/MypageView.vue'
+import MypageUpdateView from '../views/accounts/MypageUpdateView.vue'
 import UserPageView from '../views/accounts/UserPageView.vue'
 import SignUpView from '../views/accounts/SignUpView.vue'
 import LoginView from '../views/accounts/LoginView.vue'
@@ -76,6 +77,11 @@ const routes = [
     path: '/my-page',
     name: 'MypageView',
     component: MypageView
+  },
+  {
+    path: '/update-mypage',
+    name: 'MypageUpdateView',
+    component: MypageUpdateView
   },
   {
     path: '/user-page/:id',

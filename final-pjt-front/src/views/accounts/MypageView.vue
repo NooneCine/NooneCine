@@ -1,11 +1,23 @@
 <template>
   <div class="profile">
     <div v-if="user" class="m-5 text-start">
-      <img v-if="user.profile_img" :src="getImageUrl(user.profile_img)" alt="Profile Image">
-      <img v-else src="@/assets/default.png" alt="Profile Image">
-      <h5 class="mt-5 ms-3"><b>{{ user.nickname }}</b></h5>
+      <div class="d-flex">
+        <div class="profile-image-container">
+          <img v-if="user.profile_img" :src="getImageUrl(user.profile_img)" alt="Profile Image" class="profile-image">
+          <img v-else src="@/assets/default.png" alt="Profile Image">
+        </div>
+        <div class="mx-5">
+          <h5 class="mt-5"><b>{{ user.nickname }}</b></h5>
+          <p>{{ user.email }}</p>
+        </div>
+        <router-link :to="{ name: 'MypageUpdateView', params: { id: user.id } }">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-eraser-fill ms-5" viewBox="0 0 16 16">
+            <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
+          </svg>
+        </router-link>
+      </div>
+      
 
-      <p class="ms-3">{{ user.email }}</p>
       <p class="mt-5 ms-3">인생 영화 : {{ user?.favorite_movie }}</p>
       <p class="mt-5 ms-3">내 게시물
         <span v-for="post in postList" :key="post.id">
@@ -58,10 +70,11 @@ export default {
   methods: {
     fetchUser() {
       const API_URL = 'http://127.0.0.1:8000'
+      const userPk = this.$store.state.user.id
 
       axios({
         method: 'get',
-        url: `${API_URL}/api/v1/profile/`,
+        url: `${API_URL}/api/v1/profile/${userPk}`,
         headers: {
           Authorization: `Token ${this.$store.state.token}`,
         },
@@ -75,7 +88,7 @@ export default {
       });
     },
     getImageUrl(filename) {
-      return 'http://127.0.0.1:8000' + filename
+      return filename
     },
   },
 }
@@ -85,5 +98,17 @@ export default {
 .profile {
   margin-top: 100px;
   margin-left: 100px;
+}
+.profile-image-container {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.profile-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 </style>

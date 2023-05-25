@@ -77,6 +77,12 @@ export default new Vuex.Store({
         }
       }
     },
+    UPDATE_PROFILE(state, user) {
+      state.user = {
+        ...state.user,
+        ...user
+      }
+    },
   },
   actions: {
     signUp(context, payload) {
@@ -234,6 +240,11 @@ export default new Vuex.Store({
       .catch((err) => {
         console.log(err)
       })
+    },
+
+    // mypage
+    updateProfile({ commit }, user) {
+      commit('UPDATE_PROFILE', user)
     },
   },
   modules: {
