@@ -68,3 +68,15 @@ def create_review(request, movie_pk):
     if serializer.is_valid(raise_exception=True):
         serializer.save(movie=movie, user=request.user)
         return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+
+@api_view(['POST'])
+def like_review(request, movie_pk):
+    movie = get_object_or_404(Movie, pk=movie_pk)
+    user = request.user
+    if movie.likes.filter(pk=user.pk).exists():
+        movie.likes.remove(user)
+        return Response(status=status.HTTP_200_OK)
+    else:
+        movie.likes.add(user)
+        return Response(status=status.HTTP_200_OK)

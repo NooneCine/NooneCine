@@ -22,6 +22,8 @@ class MovieListSerializer(serializers.ModelSerializer):
 
 
 class ReviewSerializer(serializers.ModelSerializer):
+    user_nickname = serializers.CharField(source='user.nickname', read_only=True)
+    
     class Meta:
         model = Review
         fields = '__all__'
@@ -46,7 +48,16 @@ class ActorDetailSerializer(serializers.ModelSerializer):
 class MovieDetailSerializer(serializers.ModelSerializer):
     review_set = ReviewSerializer(many=True, read_only=True)
     review_count = serializers.IntegerField(source='review_set.count', read_only=True)
-    likes_count = serializers.IntegerField(source='likes.count', read_only=True)
+    
+    likes_count = serializers.SerializerMethodField()
+    liked_users = serializers.SerializerMethodField()
+
+    def get_likes_count(self, obj):
+        return obj.likes.count()
+
+    def get_liked_users(self, obj):
+        return obj.get_liked_users()
+
     noonecine_count = serializers.IntegerField(source='noonecine.count', read_only=True)
     
     class Meta:
