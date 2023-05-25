@@ -71,6 +71,9 @@ export default {
     shouldShake() {
       return this.isInitialLoad
     },
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
   },
   methods: {
     selectAnswer(answer) {
@@ -84,6 +87,10 @@ export default {
       location.reload()
     },
     startButton() {
+      if (!this.isLogin) {
+        alert('로그인이 필요한 페이지입니다')
+        this.$router.push({ name: 'LoginView' })
+      }
       this.start = true
     },
     recommendGetMovie() {

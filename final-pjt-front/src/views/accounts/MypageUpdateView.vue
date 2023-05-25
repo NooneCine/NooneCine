@@ -84,18 +84,14 @@ export default {
           nickname: this.user.nickname,
           favorite_movie: this.user.favorite_movie
         }
-
-        // const isNicknameTaken = this.isNicknameTaken(updatedUser.nickname)
-        // if (isNicknameTaken) {
-        //   alert('이미 사용 중인 닉네임입니다.')
-        //   return
-        // }
         
         this.$store.dispatch('updateProfile', updatedUser)
         this.$router.push({ name: 'MypageView' })
       })
       .catch(err => {
-        console.error('업데이트 실패:', err)
+        console.log(err)
+        alert('이미 사용 중인 닉네임입니다.')
+        return
       })
     },
   }
