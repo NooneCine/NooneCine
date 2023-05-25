@@ -4,7 +4,7 @@ import Vuex from 'vuex'
 import axios from 'axios'
 import createPersistedState from 'vuex-persistedstate'
 import router from '../router'
-import genre from './modules/genre'
+import recommends from './modules/recommends'
 
 
 const API_URL = 'http://127.0.0.1:8000'
@@ -248,6 +248,6 @@ export default new Vuex.Store({
     },
   },
   modules: {
-    genre
+    recommends
   }
 })

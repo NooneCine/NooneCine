@@ -1,9 +1,9 @@
 <template>
-  <div id="app">
+  <div id="app" style="background-color: #0D0D0D;">
     <HeaderView class="fixed-top header"/>
     <div class="box"></div>
     <router-view />
-    <FooterView />
+    <FooterView class="fixed-bottom footer" />
   </div>
 </template>
 
@@ -21,19 +21,31 @@ export default {
 </script>
 
 <style>
+:root {
+  background-color: #0D0D0D;
+  color: white;
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
+  font-family: 'Gothic A1', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: white;
 }
 
 .header {
-  background-color: white;
+  background-color: #0D0D0D;
 }
 
 .box {
   height: 68px;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #0D0D0D;
 }
 </style>
