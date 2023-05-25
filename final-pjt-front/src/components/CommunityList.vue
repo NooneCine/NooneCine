@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div class="text-start container">
+    <h4 class="fw-bolder">게시글 목록</h4>
+    <p>총 게시글: {{posts.length}}개</p>
     <ul class="list-group">
       <CommunityListItem v-for="post in posts" :key="post.id" :post="post"/>
     </ul>
@@ -22,6 +24,8 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.container {
+  width: 1600px;
+}
 </style>
