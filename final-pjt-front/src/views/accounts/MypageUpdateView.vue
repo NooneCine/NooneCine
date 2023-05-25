@@ -61,8 +61,10 @@ export default {
     },
     updateProfile() {
       const formData = new FormData()
-      console.log(formData)
-      formData.append('profile_img', this.imageFile)
+
+      if(this.imageFile) {
+        formData.append('profile_img', this.imageFile)
+      }
       formData.append('nickname', this.user.nickname)
       formData.append('favorite_movie', this.user.favorite_movie)
 

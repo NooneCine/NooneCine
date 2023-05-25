@@ -6,7 +6,8 @@
       <h5 class="mt-5 ms-3"><b>{{ post.user_nickname }}</b></h5>
 
       <p class="ms-3">{{ post.user.email }}</p>
-      <p class="mt-5 ms-3">인생 영화 : {{ post.user?.favorite_movie }}</p>
+      <p v-if="post.user?.favorite_movie" class="mt-5 ms-3">인생 영화 : {{ post.user?.favorite_movie }}</p>
+      <p v-else class="mt-5 ms-3">인생 영화가 아직 없습니다.</p>
       <p class="mt-5 ms-3\">내 게시물
         <span v-for="post in postList" :key="post.id">
           <div class="card" style="width: 18rem;">
