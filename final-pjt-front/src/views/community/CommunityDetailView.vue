@@ -32,7 +32,8 @@
             </svg>
           </button>
         </div>
-        <p>작성자 : {{ post?.user_nickname }}</p>
+        
+        <p>작성자 : <router-link :to="{ name: 'UserPageView', params: { id : post.user } }">{{ post?.user_nickname }}</router-link></p>
         <h5 class="mt-5">{{ post?.content }}</h5>
       </div>
     </div>

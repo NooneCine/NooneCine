@@ -3,6 +3,7 @@ from rest_framework import serializers
 
 from .models import User
 from .validators import validate_username
+from community.serializers import PostSerializer
 
 
 class LoginSerializer(serializers.Serializer):
@@ -25,6 +26,7 @@ class LoginSerializer(serializers.Serializer):
 class UserSerializer(serializers.ModelSerializer):
     # 기본값이 True라서 안해줘도 되는 것 같긴 함
     profile_img = serializers.ImageField(use_url=True, required=False)
+    posts = PostSerializer(many=True, read_only=True)
 
     class Meta:
         model = User
@@ -37,7 +39,8 @@ class UserSerializer(serializers.ModelSerializer):
             'profile_img',
             'favorite_movie',
             'is_active',
-            'password'
+            'password',
+            'posts',
         )
         read_only_fields = ('last_login', 'is_active')
         extra_kwargs = {

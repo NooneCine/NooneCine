@@ -1,6 +1,8 @@
 from django.conf import settings
 from django.contrib.auth import login, logout
 from rest_framework import views, generics, response, permissions, authentication
+from rest_framework.response import Response
+from django.shortcuts import get_object_or_404
 from rest_framework.authtoken.models import Token
 from .models import User
 from .serializers import UserSerializer, LoginSerializer
@@ -47,6 +49,13 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
     permission_classes = [permissions.IsAuthenticated]
     lookup_field = 'pk'
 
-    def get_object(self, *args, **kwargs):
+    def get_object(self):
+        user_pk = self.kwargs.get('user_pk')
+        if user_pk is not None:
+            return get_object_or_404(User, pk=user_pk)
         return self.request.user
 
+# def profile(request, user_pk):
+#     user = get_object_or_404(User, pk=user_pk)
+#     serializer = UserSerializer(user)
+#     return Response(serializer.data)
