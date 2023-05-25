@@ -3,7 +3,7 @@
     <router-link :to="{ name: 'CommunityDetailView', params: { id: post.id } }" class="list-group-item list-group-item-action">
       <div class="mx-3">
         <div class="d-flex w-100 justify-content-between my-2">
-          <h4>{{ post.title }}</h4>
+          <h3 class="title fw-bolder">{{ post.title }}</h3>
           <small>{{ formatTime(post.created_at) }}</small>
         </div>
         <div class="my-2 text-start overflow-text">{{ post.content }}</div>
@@ -72,4 +72,12 @@ a {
   overflow: hidden;
 }
 
+.list-group-item{
+  background-color: #0D0D0D;
+  color: white;
+}
+.title {
+  font-size: larger;
+  font-weight: 800;
+}
 </style>

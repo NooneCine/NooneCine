@@ -1,8 +1,8 @@
 <template>
   <div>
     <CommunityChips class="mt-5"/>
-    <router-link to="/community/create" class="btn btn-lg btn-primary m-4 rounded-pill">CREATE</router-link>
-    <CommunityList />
+    <router-link to="/community/create" class="btn btn-lg purple m-4 rounded-pill">CREATE</router-link>
+    <CommunityList class="mt-5"/>
   </div>
 </template>
 
@@ -37,6 +37,9 @@ export default {
 }
 </script>
 
-<style>
-
+<style scoped>
+.purple {
+  background-color: #6B71F2;
+  color: #eaedf0;
+}
 </style>

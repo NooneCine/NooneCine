@@ -1,7 +1,7 @@
 <template>
   <div class="home-view">
     <h1 class="head">NꙬNE CINE</h1>
-    <button v-if="!start" @click="startButton()" class="btn re btn-lg rounded-pill">START</button>
+    <button v-if="!start" @click="startButton()" class="btn purple btn-lg rounded-pill">START</button>
     <p v-if="!start" class="mt-3 light">버튼을 눌러서 영화를 추천받아 보세요</p>
     <div v-if="!start" class="movie-list-right mt-3">
       <MovieListItem v-for="movie in recommendMovieList" :key="movie.id" :movie="movie" :poster="movie?.poster_path" class="poster-item poster-item-right" />
@@ -26,7 +26,7 @@
         </div>
 
         <div class="d-flex flex-column align-items-center">
-          <button @click="getRandomMovie()" class="btn re rounded-pill mt-4">
+          <button @click="getRandomMovie()" class="btn purple rounded-pill mt-4">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-clockwise" viewBox="0 0 16 16">
               <path fill-rule="evenodd" d="M8 3a5 5 0 1 0 4.546 2.914.5.5 0 0 1 .908-.417A6 6 0 1 1 8 2v1z"/>
               <path d="M8 4.466V.534a.25.25 0 0 1 .41-.192l2.36 1.966c.12.1.12.284 0 .384L8.41 4.658A.25.25 0 0 1 8 4.466z"/>
@@ -167,7 +167,7 @@ image {
   width: 200px;
 }
 
-.re {
+.purple {
   background-color: #6B71F2;
   color: #eaedf0;
 }

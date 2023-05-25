@@ -2,7 +2,7 @@
   <div>
     <div class="navbar top">
       <router-link to="/">
-        <img src="@/assets/default.png" alt="Bootstrap" height="48">
+        <img src="@/assets/logo.png" alt="Bootstrap" height="48">
       </router-link>
       <div class="mt-0 top nav-a">
         <router-link to="/" class="m-3">HOME</router-link> 
@@ -61,7 +61,9 @@ export default {
 <style>
 .top {
   padding: 10px 20px;
+  margin-top: 10px;
   margin-right: 20px;
+  font-size: x-large;
 }
 
 .top a {
@@ -71,7 +73,7 @@ export default {
 }
 
 .top a.router-link-exact-active {
-  color: rgb(158, 95, 253);
+  color: #6B71F2;
 }
 
 #white {
