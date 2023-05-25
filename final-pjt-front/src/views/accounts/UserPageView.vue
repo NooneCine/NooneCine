@@ -5,10 +5,27 @@
       <img v-else src="@/assets/default.png" alt="Profile Image">
       <h5 class="mt-5 ms-3"><b>{{ post.user_nickname }}</b></h5>
 
-      <p class="ms-3">{{ post.user.email }}</p>
-      <p v-if="post.user?.favorite_movie" class="mt-5 ms-3">인생 영화 : {{ post.user?.favorite_movie }}</p>
-      <p v-else class="mt-5 ms-3">인생 영화가 아직 없습니다.</p>
-      <p class="mt-5 ms-3\">내 게시물
+      <div class="ms-3">
+        <h4 class="mt-5 fw-bold">{{ post.user_nickname }}의 인생영화</h4>
+        <p v-if="post.user?.favorite_movie" class="mt-5">{{ post.user?.favorite_movie }}</p>
+        <p v-else class="mt-3">인생 영화가 아직 없습니다.</p>
+        <!-- <p v-if="post.user?.favorite_movie === null">
+          아직 인생 영화가 없어요ㅠ
+        </p>
+        <p v-else-if="post.user?.favorite_movie === ''">
+          아직 인생 영화가 없어요ㅠ
+        </p>
+        <p v-else class="fs-4">{{ post.user?.favorite_movie }}</p> -->
+      </div>
+
+      <div class="mt-5 ms-3">
+        <h4 class="fw-bold">{{ post.user_nickname }}의 게시물</h4>
+
+        <div class="mt-4 row">
+          <UserpagePostItem v-for="post in postList" :key="post.id" :post="post" class="col-sm-6 mb-3 mb-sm-0 ms-3"/>
+        </div>
+      </div>
+<!-- 
         <span v-for="post in postList" :key="post.id">
           <div class="card" style="width: 18rem;">
             <router-link :to="{ name: 'CommunityDetailView', params: { id: post.id } }" class="mt-3">
@@ -31,21 +48,20 @@
               </div>
             </router-link>
           </div>
-        </span>
-      </p>
-      <!-- <p class="mt-5 ms-3">좋아하는 영화 : {{ movie?.likes }}</p>
-      <p class="mt-5 ms-3">좋아하는 배우 : {{ movie?.actor }}</p>
-      <p class="mt-5 ms-3">본 영화 : {{ movie?.watched }}</p>
-      <p class="mt-5 ms-3">보고싶은 영화 : {{ movie?.noonecine }}</p> -->
+        </span> -->
     </div>
   </div>
 </template>
 
 <script>
 import axios from 'axios'
+import UserpagePostItem from '@/components/UserpagePostItem.vue'
 
 export default {
   name: 'UserPageView',
+  components: {
+    UserpagePostItem,
+  },
   data() {
     return {
       movie: null,

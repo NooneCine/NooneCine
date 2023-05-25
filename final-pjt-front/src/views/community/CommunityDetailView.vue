@@ -7,8 +7,8 @@
       </svg> <p class="ms-2">목록으로</p>
     </router-link>
 
-    <div v-if="post" class="d-flex m-5">
-      <img v-if="post?.image" :src="getImageUrl(post?.image)" alt="Post Image" width="50%"/>
+    <div v-if="post" class="d-flex mt-5 mb-5 container">
+      <img v-if="post?.image" :src="getImageUrl(post?.image)" alt="Post Image" width="50%" />
       <div class="m-5 text-start">
         <button @click="likePost" class="like btn ps-0 mb-1">
           <svg v-if="liked" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="rgb(158, 95, 253)" class="bi bi-heart-fill" viewBox="0 0 16 16">
@@ -37,7 +37,8 @@
           <router-link v-if="post?.user === user.id" :to="{ name: 'MypageView' }">{{ post?.user_nickname }}</router-link>
           <router-link v-else :to="{ name: 'UserPageView', params: { id : post.user } }">{{ post?.user_nickname }}</router-link>
         </p>
-        <h5 class="mt-5" v-html="applyLineBreaks(post?.content)"></h5>
+        <p>{{ post?.content }}</p>
+        <!-- <h5 class="mt-5" v-html="applyLineBreaks(post?.content)"></h5> -->
       </div>
     </div>
     <div class="container text-start">
@@ -183,9 +184,9 @@ export default {
         console.log(err)
       })
     },
-    applyLineBreaks(text) {
-      return text.replace(/\n/g, '<br>')
-    }
+    // applyLineBreaks(text) {
+    //   return text.replace(/\n/g, '<br>')
+    // }
   },
 }
 </script>
