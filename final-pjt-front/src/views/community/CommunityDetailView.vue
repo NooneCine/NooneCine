@@ -33,7 +33,10 @@
           </button>
         </div>
         
-        <p>작성자 : <router-link :to="{ name: 'UserPageView', params: { id : post.user } }">{{ post?.user_nickname }}</router-link></p>
+        <p>작성자 : 
+          <router-link v-if="post?.user === user.id" :to="{ name: 'MypageView' }">{{ post?.user_nickname }}</router-link>
+          <router-link v-else :to="{ name: 'UserPageView', params: { id : post.user } }">{{ post?.user_nickname }}</router-link>
+        </p>
         <h5 class="mt-5">{{ post?.content }}</h5>
       </div>
     </div>

@@ -18,7 +18,13 @@
       </div>
       
 
-      <p class="mt-5 ms-3">인생 영화 : {{ user?.favorite_movie }}</p>
+      <p v-if="user?.favorite_movie" class="mt-5 ms-3">인생 영화 : {{ user?.favorite_movie }}</p>
+      <p v-else class="mt-5 ms-3">
+        인생 영화를 등록해주세요!
+        <router-link :to="{ name: 'MypageUpdateView', params: { id: user.id } }">
+          등록하러 가기
+        </router-link>
+      </p>
       <p class="mt-5 ms-3">내 게시물
         <span v-for="post in postList" :key="post.id">
           <div class="card" style="width: 18rem;">
@@ -44,10 +50,10 @@
           </div>
         </span>
       </p>
-      <p class="mt-5 ms-3">좋아하는 영화 : {{ movie?.likes }}</p>
+      <!-- <p class="mt-5 ms-3">좋아하는 영화 : {{ movie?.likes }}</p>
       <p class="mt-5 ms-3">좋아하는 배우 : {{ movie?.actor }}</p>
       <p class="mt-5 ms-3">본 영화 : {{ movie?.watched }}</p>
-      <p class="mt-5 ms-3">보고싶은 영화 : {{ movie?.noonecine }}</p>
+      <p class="mt-5 ms-3">보고싶은 영화 : {{ movie?.noonecine }}</p> -->
     </div>
   </div>
 </template>
