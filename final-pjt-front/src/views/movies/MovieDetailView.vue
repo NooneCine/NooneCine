@@ -3,7 +3,7 @@
     <!-- <h1>MovieDetailView</h1>
     <p>영화 제목: {{movie.title}}</p>
     <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`" class="poster m-2"> -->
-    <router-link :to="{ name: 'MovieView' }" class="mt-5 list">
+    <router-link :to="{ name: 'MovieView' }" class="mt-5 list yellow">
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
         <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
       </svg> <p class="ms-2">목록으로</p>
@@ -15,9 +15,8 @@
       </div>
     </div>
 
-    <h2 class="fw-bold my-3">{{ movie.title }}</h2>
     <div class="container">
-      <div class="d-flex align-items-center mt-5">
+      <div class="d-flex align-items-center mt-3">
         <img :src="`https://image.tmdb.org/t/p/original${movie.poster_path}`" class="img-fluid img-thumbnail m-5" width="30%" height="auto"/>
         <div class="text-start">
           <!-- <div> 좋아요를 시도한 흔적
@@ -30,31 +29,23 @@
               </svg>
             </button>
           </div> -->
+          <h2 class="fw-bold my-3 mt-5">{{ movie.title }}</h2>
           <div>상영시간: {{movie.runtime}}분</div>
-          <div>감독: {{movie.director}}</div>
-          <div>출연: {{movie.actors}}</div>
           <div>개봉일: {{movie.release_date}}</div>
-          <div class="text-start mt-3">
+          <div class="text-start mt-5">
             <p>줄거리</p>
             {{movie.overview}}
           </div>
           <div></div>
-            <!-- <div class="m-5">
-              <span>이건 뭐야: {{movie.popularity}}</span>
-              <span>관객수: {{movie.vote_count}}</span>
-              <span>평점: {{movie.vote_average}}</span>
-              <span>상영시간: {{movie.runtime}}</span>
-              <span>감독: {{movie.director}}</span>
-              <span>장르: {{movie.genres}}</span>
-              <span>배우: {{movie.actors}}</span>
-              <span>좋아요: {{movie.likes}}</span>
-              <span>본 사람: {{movie.watched}}</span>
-              <span>누네: {{movie.noonecine}}</span>
-            </div> -->
+            
         </div>
       </div>
       
-
+      <router-link :to="{ name: 'MovieView' }" class="mt-3 mb-5 list yellow">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-arrow-left-square-fill" viewBox="0 0 16 16">
+          <path d="M16 14a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12zm-4.5-6.5H5.707l2.147-2.146a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708-.708L5.707 8.5H11.5a.5.5 0 0 0 0-1z"/>
+        </svg> <p class="ms-2">목록으로</p>
+      </router-link>
       <!-- <form @submit.prevent="submitReview">
         <div class="form-group">
           <label for="reviewInput">리뷰 작성</label>
@@ -185,5 +176,9 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
+}
+
+.yellow {
+  color: #F2D06B;
 }
 </style>
