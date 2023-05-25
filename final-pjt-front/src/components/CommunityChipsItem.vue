@@ -1,7 +1,7 @@
 <template>
   <div>
     <router-link :to="{ name: 'CommunityDetailView', params: { id: post.id } }">
-    <div class="btn border rounded-pill detail-pill d-flex flex-row justify-content-between">
+    <div class="btn btn-dark rounded-pill detail-pill d-flex flex-row justify-content-between">
       <img :src="getImageUrl(post?.image)" class="rounded-circle img-thumb m-1"/>
       <div class="text-start text-pill mt-4 ms-3 me-4">
         <h5 class="mt-2"><b>{{ post?.title }}</b></h5>
