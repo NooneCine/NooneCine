@@ -54,8 +54,9 @@ class UserProfileView(generics.RetrieveUpdateAPIView):
         if user_pk is not None:
             return get_object_or_404(User, pk=user_pk)
         return self.request.user
+      
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
 
-# def profile(request, user_pk):
-#     user = get_object_or_404(User, pk=user_pk)
-#     serializer = UserSerializer(user)
-#     return Response(serializer.data)
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)

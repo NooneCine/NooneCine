@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>CommunityUpdateView</h1>
-    <form @submit.prevent="createPost" enctype="multipart/form-data" class="container">
+    <h2 class="mt-5">게시글 수정하기</h2>
+    <form @submit.prevent="updatePost" enctype="multipart/form-data" class="container">
       <div class="form-floating mt-5">
         <input type="text" id="title" v-model.trim="title" class="form-control">
         <label for="title">제목</label>
