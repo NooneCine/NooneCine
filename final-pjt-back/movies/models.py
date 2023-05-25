@@ -37,7 +37,7 @@ class Movie(models.Model):
 
 class Review(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
-    movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
+    movie = models.IntegerField()
     content = models.TextField()
     noone_score = models.IntegerField(default=0)
 

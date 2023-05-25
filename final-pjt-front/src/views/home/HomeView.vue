@@ -14,7 +14,7 @@
         <h3>추천 장르 : {{ recommendedGenre }}</h3>
         <button @click="getRandomMovie()" class="btn btn-primary rounded-pill">다른 영화 보기</button>
         <div v-if="recommendMovieList">
-          <MovieListItem v-for="movie in randomMovieList" :key="movie.id" :movie="movie" :poster="movie.poster_path" class="posters"/>
+          <MovieListItem v-for="movie in randomMovieList" :key="movie.id" :movie="movie" :poster="movie?.poster_path" class="posters"/>
         </div>
 
         <button @click="restart" class="btn btn-primary rounded-pill">Restart</button>
