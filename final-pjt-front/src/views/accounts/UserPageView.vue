@@ -1,13 +1,13 @@
 <template>
   <div class="profile">
-    <div v-if="user" class="m-5 text-start">
-      <img v-if="user.profile_img" :src="getImageUrl(user.profile_img)" alt="Profile Image">
+    <div v-if="post.user" class="m-5 text-start">
+      <img v-if="post.user.profile_img" :src="getImageUrl(post.user.profile_img)" alt="Profile Image">
       <img v-else src="@/assets/default.png" alt="Profile Image">
-      <h5 class="mt-5 ms-3"><b>{{ user.nickname }}</b></h5>
+      <h5 class="mt-5 ms-3"><b>{{ post.user_nickname }}</b></h5>
 
-      <p class="ms-3">{{ user.email }}</p>
-      <p class="mt-5 ms-3">인생 영화 : {{ user?.favorite_movie }}</p>
-      <p class="mt-5 ms-3">내 게시물
+      <p class="ms-3">{{ post.user.email }}</p>
+      <p class="mt-5 ms-3">인생 영화 : {{ post.user?.favorite_movie }}</p>
+      <p class="mt-5 ms-3\">내 게시물
         <span v-for="post in postList" :key="post.id">
           <div class="card" style="width: 18rem;">
             <router-link :to="{ name: 'CommunityDetailView', params: { id: post.id } }" class="mt-3">
@@ -32,10 +32,10 @@
           </div>
         </span>
       </p>
-      <p class="mt-5 ms-3">좋아하는 영화 : {{ movie?.likes }}</p>
+      <!-- <p class="mt-5 ms-3">좋아하는 영화 : {{ movie?.likes }}</p>
       <p class="mt-5 ms-3">좋아하는 배우 : {{ movie?.actor }}</p>
       <p class="mt-5 ms-3">본 영화 : {{ movie?.watched }}</p>
-      <p class="mt-5 ms-3">보고싶은 영화 : {{ movie?.noonecine }}</p>
+      <p class="mt-5 ms-3">보고싶은 영화 : {{ movie?.noonecine }}</p> -->
     </div>
   </div>
 </template>
@@ -44,24 +44,27 @@
 import axios from 'axios'
 
 export default {
-  name: 'MypageView',
+  name: 'UserPageView',
   data() {
     return {
-      user: this.$store.state.user,
       movie: null,
+      post: this.$store.state.post,
+      user: null,
       postList: [],
     }
   },
   created() {
-    this.fetchUser()
+    this.fetchUser(),
+    this.getPostUser()
   },
   methods: {
     fetchUser() {
       const API_URL = 'http://127.0.0.1:8000'
+      const userPk = this.$store.state.post.user
 
       axios({
         method: 'get',
-        url: `${API_URL}/api/v1/profile/`,
+        url: `${API_URL}/api/v1/profile/${ userPk }/`,
         headers: {
           Authorization: `Token ${this.$store.state.token}`,
         },
@@ -69,21 +72,43 @@ export default {
       .then((res) => {
         this.user = res.data
         this.postList = this.user.posts
+        console.log(this.postList)
       })
       .catch((err) => {
         console.log(err)
       });
     },
-    getImageUrl(filename) {
-      return 'http://127.0.0.1:8000' + filename
-    },
+    // getImageUrl(filename) {
+    //   return 'http://127.0.0.1:8000' + filename
+    // },
+    // getPostUser() {
+    //   axios({
+    //     method: 'get',
+    //     url: `${API_URL}/api/v1/accounts/${ userPk }/`,
+    //     headers: {
+    //       Authorization: `Token ${this.$store.state.token}`
+    //     }
+    //   })
+    //   .then((res) => {
+    //     this.$store.commit('SET_POST', res.data)
+    //   })
+    //   .catch((err) => {
+    //     console.log(err)
+    //   })
+    // }
   },
 }
 </script>
 
-<style>
+<style scoped>
 .profile {
   margin-top: 100px;
   margin-left: 100px;
+}
+.overflow-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical; 
+  overflow: hidden;
 }
 </style>
