@@ -1,19 +1,25 @@
 <template>
   <div>
-    <h2 class="mt-5">프로필 수정하기</h2>
+    <h2 class="mt-5">
+      <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" fill="currentColor" class="bi bi-eraser-fil" viewBox="0 0 16 16">
+        <path d="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"/>
+      </svg>
+    </h2>
+    <p class="mt-3">프로필 수정</p>
     <form @submit.prevent="updateProfile" enctype="multipart/form-data" class="container">
       <div class="d-flex justify-content-around">
         <label for="profile-img">
-          <div class="profile-image-container">
-            <img v-if="user.profile_img" :src="user.profile_img" alt="Profile Image" class="profile-image">
-            <img v-else src="@/assets/default.png" alt="Profile Image" class="profile-image">
+          <div>
+            <img v-if="user.profile_img" :src="user.profile_img" alt="Profile Image" class="profile-image rounded-circle">
+            <img v-else src="@/assets/default.png" alt="Profile Image" class="profile-image mb-3">
             <input type="file" id="profile-img" @change="onProfileImageChange" accept="image/*" class="hidden-input">
+            <p>프로필 사진 수정</p>
           </div>
         </label>
 
-        <div class="text-start">
-          <div>이메일: {{ user.email }}</div>
-          <div>이름: {{ user.name }}</div>
+        <div class="text-start white">
+          <h4 class="fw-bold">{{ user.name }}</h4>
+          <div>{{ user.email }}</div>
           <div>
             닉네임:
             <input type="text" id="nickname" v-model.trim="user.nickname" class="form-control" placeholder="">
@@ -27,7 +33,7 @@
         </div>
 
       </div>
-      <button type="submit" class="btn btn-primary rounded-pill mt-5">저장</button>
+      <button type="submit" class="btn purple btn-lg rounded-pill mt-5">저장</button>
     </form>
   </div>
 </template>
@@ -41,6 +47,8 @@ export default {
   data() {
     return {
       user: {
+        email: this.$store.state.user.email,
+        name: this.$store.state.user.name,
         profile_img: this.$store.state.user.profile_img,
         nickname: this.$store.state.user.nickname,
         favorite_movie: this.$store.state.user.favorite_movie
@@ -102,22 +110,24 @@ export default {
 }
 </script>
 <style scoped>
+.container {
+  margin-top: 100px;
+}
+
+p {
+  opacity: 0.6;
+}
+
 .custom-textarea {
   height: 200px; /* 원하는 높이 값으로 설정 */
 }
 .hidden-input {
   display: none;
 }
-.profile-image-container {
-  width: 150px;
-  height: 150px;
+.profile-image {
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  overflow: hidden;
 }
 
-.profile-image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
 </style>
