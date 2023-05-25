@@ -1,6 +1,6 @@
 <template>
   <div>
-    <CommunityChips class="mt-5"/>
+    <CommunityChips class="mt-5 mx-5"/>
     <router-link to="/community/create" class="btn btn-lg purple m-4 rounded-pill">CREATE</router-link>
     <CommunityList class="mt-5"/>
   </div>

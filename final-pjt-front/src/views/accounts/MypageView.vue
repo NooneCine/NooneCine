@@ -64,11 +64,21 @@ export default {
       postList: [],
     }
   },
+  computed: {
+    isLogin() {
+      return this.$store.getters.isLogin
+    }
+  },
   created() {
     this.fetchUser()
   },
   methods: {
     fetchUser() {
+      if (!this.isLogin) {
+        alert('로그인이 필요한 페이지입니다')
+        this.$router.push({ name: 'LoginView' })
+      }
+
       const API_URL = 'http://127.0.0.1:8000'
       const userPk = this.$store.state.user.id
 

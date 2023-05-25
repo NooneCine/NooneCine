@@ -37,7 +37,7 @@
           <router-link v-if="post?.user === user.id" :to="{ name: 'MypageView' }">{{ post?.user_nickname }}</router-link>
           <router-link v-else :to="{ name: 'UserPageView', params: { id : post.user } }">{{ post?.user_nickname }}</router-link>
         </p>
-        <h5 class="mt-5">{{ post?.content }}</h5>
+        <h5 class="mt-5" v-html="applyLineBreaks(post?.content)"></h5>
       </div>
     </div>
     <div class="container text-start">
@@ -183,6 +183,9 @@ export default {
         console.log(err)
       })
     },
+    applyLineBreaks(text) {
+      return text.replace(/\n/g, '<br>')
+    }
   },
 }
 </script>
